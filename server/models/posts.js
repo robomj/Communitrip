@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       models.posts.belongsTo(models.users);
       models.posts.hasMany(models.likes);
       models.posts.hasMany(models.comments);
-      models.posts.belongsToMany(models.tags); /** 다대다 관계 */
+      models.posts.belongsToMany(models.tags, { through: 'postTag'}); /** 다대다 관계 */
     }
   }
   posts.init({
