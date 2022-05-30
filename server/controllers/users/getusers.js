@@ -8,7 +8,7 @@ module.exports = (req, res) => {
         }
     }).then((result) => {
         if(!result) {
-            res.json({ message: '먼저 로그인 하세요' })
+            res.status(404).json({ message: '먼저 로그인 하세요' })
         } else {
             delete result.dataValues.password
             res.json({ data: result.dataValues })

@@ -11,7 +11,8 @@ db.sequelize.sync().then(() => {
     console.log('err')
 })
 
-app.use(express())
+app.use(express.json())
+app.use(express.urlencoded({ extended: false })); /** 클라이언트 body 해석 위함 */
 app.use(cookieParser()); /** 요청된 쿠키를 추출하기 위한 미들웨어 req의 cookies속성 부여 */
 
 app.get('/', (req, res) => {
