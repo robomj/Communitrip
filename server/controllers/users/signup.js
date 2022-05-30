@@ -9,7 +9,6 @@ module.exports = (req, res) => {
     ) {
         return res.status(403).send('잘못 적으셨네요');
     } else {
-
         users.findOrCreate({
             where: {
                 email: req.body.email,

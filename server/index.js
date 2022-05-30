@@ -25,6 +25,14 @@ app.post('/users/logout', controllers.logout)
 app.delete('/users/:userId', controllers.signout)
 app.post('/users/signup', controllers.signup)
 
+app.get('/posts', controllers.getposts)
+app.get('/posts/:postId/:userId', controllers.mypost)
+app.get('/posts/:postId', controllers.getonepost)
+app.post('/posts/:userId', controllers.createpost)
+app.get('/posts/tags', controllers.tagpost)
+app.delete('/posts/:postId', controllers.deletepost)
+app.patch('/posts/:postId', controllers.patchpost)
+
 app.listen(port, () => {
     console.log(`listening on port ${port}`)
 })
