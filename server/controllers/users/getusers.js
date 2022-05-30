@@ -15,7 +15,7 @@ module.exports = (req, res) => {
         }
     }).catch((err) => {
         console.log(err)
-        res.json({ message: '서버에 문제가 있네요' })
+        res.status(500).json({ message: '서버에 문제가 있네요' })
     })
 
 }

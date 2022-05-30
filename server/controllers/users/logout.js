@@ -7,6 +7,6 @@ module.exports = (req,res) => {
         })
         res.json({message: '로그아웃 성공'})
     } else {
-        res.json({message: '서버에 문제가 있네요'})
+        res.status(500).json({message: '서버에 문제가 있네요'})
     }
 }
