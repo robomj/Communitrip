@@ -25,13 +25,13 @@ app.post('/users/logout', controllers.logout)
 app.delete('/users/:userId', controllers.signout)
 app.post('/users/signup', controllers.signup)
 
-app.get('/posts', controllers.getposts)
-app.get('/posts/:postId/:userId', controllers.mypost)
-app.get('/posts/:postId', controllers.getonepost)
-app.post('/posts/:userId', controllers.createpost)
-app.get('/posts/tags', controllers.tagpost)
-app.delete('/posts/:postId', controllers.deletepost)
-app.patch('/posts/:postId', controllers.patchpost)
+app.post('/posts/:userId', controllers.createpost) /** 게시물 생성 */
+app.delete('/posts/:postId', controllers.deletepost) /** 게시물 삭제 */
+app.get('/posts/:postId', controllers.getonepost) /** 하나의 게시물 얻기 */
+app.get('/posts', controllers.getallposts) /** 모든 게시물 얻기 */
+app.get('/posts/:postId/:userId', controllers.mypost) /** 유저가 좋아요 누른 게시물 */
+app.patch('/posts/:postId', controllers.patchpost) /** 게시물 수정 */
+app.get('/posts/tags', controllers.tagpost) /** 게시물 태그 얻기 */
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`)
