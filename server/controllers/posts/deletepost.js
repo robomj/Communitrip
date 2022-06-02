@@ -6,7 +6,7 @@ module.exports = (req, res) => {
     /** params로도 post_id 날라온다 */
     posts.destroy({
         where: {
-            id: req.headers.postId
+            id: req.params.postId
         }
     }).then(() => {
         res.json({ message: '게시물 삭제 성공' })
