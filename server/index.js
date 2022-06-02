@@ -4,12 +4,20 @@ const db = require('./models')
 const app = express();
 const controllers = require('./controllers')
 const port = 8080;
+const cors = require('cors')
+
 
 db.sequelize.sync().then(() => {
     console.log('db 연결 성공')
 }).catch((err) => {
     console.log('err')
 })
+
+app.use(cors({
+    origin: ['http://localhost:3000'],
+    credentials: true,
+    methods: ['GET', 'POST', 'OPTIONS']
+  }));
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false })); /** 클라이언트 body 해석 위함 */
