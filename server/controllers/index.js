@@ -11,5 +11,12 @@ module.exports = {
     getallposts: require('./posts/getallposts'),
     mypost: require('./posts/mypost'),
     patchpost: require('./posts/patchpost'),
-    tagpost: require('./posts/tagpost')
+    gettags: require('./tags/gettags'),
+    createcomment: require('./comments/createcomment'),
+    deletecomment: require('./comments/deletecomment'),
+    getcomments: require('./comments/getcomments'),
+    patchcomment: require('./comments/patchcomment'),
+    addlikes: require('./likes/addlikes'),
+    deletelikes: require('./likes/deletelikes'),
+    getlikes: require('./likes/getlikes'),
 }

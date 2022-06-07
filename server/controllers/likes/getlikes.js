@@ -1,17 +1,16 @@
-/** 게시글 수정 */
 const { posts } = require('../../models')
 
 module.exports = (req, res) => {
-    posts.update({
-        title: result.dataValues.title,
-        image: result.dataValues.image,
-        contents: result.dataValues.contents,
-    }, {
+    posts.findOne({
         where: {
             id: req.params.postId
         }
     }).then((result) => {
-        res.json({ message: '수정 완료' })
+        if (!result) {
+            res.status(400).json({ message: '로그인 먼저 하세요' })
+        } else {
+            res.json({ data: result.dataValues.total_likes })
+        }
     }).catch((err) => {
         console.log(err)
         res.status(500).json({ message: '서버에 문제가 있네요' })
