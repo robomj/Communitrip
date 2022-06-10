@@ -103,16 +103,17 @@ export default function Login ({ handleResponseSuccess }) {
             />
           </div>
           <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-          <ModalBtn  className="close-btn" onClick={handleLogin}>
+          <ModalBtn  onClick={handleLogin}>
             로그인
           </ModalBtn>
           <br /><br />
           <div>
-          <ModalBtn  className="close-btn" onClick={() => {navigate('/signup');openModalHandler()}} >
+          <ModalBtn  className="close-btn"  >
             회원가입
           </ModalBtn>
           </div>
           <div className='alert-box'>{errorMessage}</div>
+
         </form>
       </center>         
                     </ModalView>

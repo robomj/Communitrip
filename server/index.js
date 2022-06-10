@@ -4,7 +4,13 @@ const db = require('./models')
 const app = express();
 const controllers = require('./controllers')
 const port = 8080;
+const cors =require('cors')
 
+app.use(cors({
+    origin: ['http://localhost:3000'],
+    credentials: true,
+    methods: ['GET', 'POST','DELETE', 'OPTIONS']
+  }));
 db.sequelize.sync().then(() => {
     console.log('db 연결 성공')
 }).catch((err) => {
@@ -18,6 +24,8 @@ app.use(cookieParser()); /** 요청된 쿠키를 추출하기 위한 미들웨�
 app.get('/', (req, res) => {
     res.json("hello world")
 })
+
+app.get("/users/auth", controllers.auth);
 app.patch('/users/:userId', controllers.editprofile)
 app.get('/users/:userId', controllers.getusers)
 app.post('/users/login', controllers.login)

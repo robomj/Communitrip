@@ -29,32 +29,7 @@ height: 14vh;
 border : solid 1px black;
 `
 export default function Main() {
-  const [WiseSaying, setWiseSaying] = useState('');
   const navigate = useNavigate();
-
-
-  function randomList () {
-    // setWiseSaying(randomSaying [Math.floor(Math.random() * randomSaying.length)])
-    axios.get("http://localhost:8080/")
-    .then((data) => {
-      console.log(data)
-      setWiseSaying(data.data.data)
-    })
-  }
-
-  const addRandomSaying = async () => {
-    
-    const mydata = await axios.get('http://localhost:8080/users/auth');
-    const myInfo = mydata.data.data.userInfo;
-    console.log(myInfo)
-
-    axios.get(`http://localhost:8080/myWiseSayings/${myInfo.id}/${WiseSaying.id}`
-    );
-  };
-
-
-
-
   return (
    
       <Showpage>
@@ -67,7 +42,7 @@ export default function Main() {
       소개글 보여주는 창
       </Views>
       <Buttons  onClick={() => {
-                navigate('/login');
+                navigate('/board');
               }}>
             게시판 페이지로 이동하기
           </Buttons>

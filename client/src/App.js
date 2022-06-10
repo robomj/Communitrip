@@ -7,31 +7,46 @@ import Edit_profile from './pages/Edit_profile'
 import Mypage from './pages/Mypage';
 import Main from "./pages/Main";
 import axios from 'axios';
+import Board from './pages/Board';
+import Boardpostform from './pages/Boardpostform';
+
 
 function App() {
     const navigate = useNavigate();
     const [userinfo, setUserinfo] = useState({
-      name: '',
-      email:''
+
     });
+    const [postsinfo, setPostsinfo]=useState()
     console.log(userinfo)
+    const isPosts =() =>{
+      axios.get('http://localhost:8080/posts').then((res)=>{ 
+      const test = res.data.data    
+      setPostsinfo(test)
+        }).catch(error =>{
+          console.log(error)
+        })
+    }
     const isAuthenticated = () => {
       axios.get('http://localhost:8080/users/auth').then((res) =>{
         
         if(res.data.data.userInfo !==null){
-          const {name,email,password}= res.data.data.userInfo;
-          setUserinfo({name,email,password});
+          const test= res.data.data.userInfo;
+          setUserinfo(test);
           setIsLogin(true);
         }
         
       }).catch( error => {
         console.log(error);
       })
+      
     };
+    
+    
     const handleResponseSuccess = () => {
       isAuthenticated();
     };
     const handleLogout =() =>{
+      
       axios.post('http://localhost:8080/users/logout').then((res)=>{
         setUserinfo(null);
         setIsLogin(false);
@@ -45,7 +60,7 @@ function App() {
     }
   
     useEffect(() => {
-      isAuthenticated();
+      isAuthenticated();isPosts();
     }, []);
 
     return (
@@ -55,9 +70,9 @@ function App() {
             <Navbar.Brand href="/">Logo</Navbar.Brand>
             <Nav className="me-auto" class='nav justify-content-end' >
               <Nav.Link 
-                href="/"
+                href="board"
                 onClick={() => {
-                  navigate('/');
+                  navigate('/board');
                 }}
               >
                 게시판
@@ -90,12 +105,15 @@ function App() {
             </Nav>
           </Container>
         </Navbar>
-        <br />        
+              
 <Routes>
-    <Route path="/" element={<Main />} userinfo = {userinfo} />
+    <Route path="/" element={<Main />}  postsinfo={postsinfo} userinfo = {userinfo} />
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
+    <Route path="/board" element={<Board postsinfo={postsinfo} />} />
+    <Route path="/boardpostform" element={<Boardpostform  />} />
+
 </Routes>
 </div>
     )
