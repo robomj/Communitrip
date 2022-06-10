@@ -15,7 +15,7 @@ module.exports = {
       user_id: '2',
       comment: '멋져요!',
       post_id: '1',
-      parents_num: '1',
+      parents_num: null,
       sequence: '1',
       createdAt: new Date(),
       updatedAt: new Date()

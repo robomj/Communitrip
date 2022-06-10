@@ -6,8 +6,8 @@ module.exports = (req, res) => {
         attributes: {
             exclude: ['userId']
         }
-    }).then((result) => {
-        res.json({ data: result, message: 'ok' });
+    }).then((results) => {
+        res.json({ data: results, message: 'ok' });
     }).catch((err) => {
         console.log(err);
         res.status(500).json({ message: '서버에 문제가 있네요' })
