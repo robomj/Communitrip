@@ -1,7 +1,7 @@
 import React,{ useState } from "react";
 import { useNavigate } from "react-router";
 import styled from 'styled-components';
-
+import axios from 'axios';
 export const Mypages=styled.div`
 margin: auto;
 width: 600px;
@@ -51,6 +51,16 @@ export const ModalBtn = styled.button`
   text-decoration: none;
   border: none;
   padding: 20px;
+  margin-right: 25px;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+`;
+export const ModalsBtn = styled.button`
+  background-color: #4000c7;
+  text-decoration: none;
+  border: none;
+  padding: 20px;
   color: white;
   border-radius: 30px;
   cursor: pointer;
@@ -82,6 +92,12 @@ export default function Mypage(props) {
     setIsOpen(false);
   };
   console.log(props)
+  const handleSignout =() =>{
+    axios.delete(`http://localhost:8080/users/${props.userinfo.id}`)
+    .then((data) => {
+      console.log(data)
+    })
+  }
   return (
     <div>
       <Mypages>
@@ -111,13 +127,12 @@ export default function Mypage(props) {
           정말로 회원탈퇴를 하시겠습니까?
           </div>
           <MypageBtn>
-          <ModalBtn  className="close-btn" onClick={openModalHandler}>
-            취소
-          </ModalBtn>
-          
-          <ModalBtn  className="close-btn" onClick={openDeleteHandler}>
+          <ModalBtn  className="close-btn" onClick={() => {openDeleteHandler();handleSignout();{props.handleLogout()}}}>
             확인
           </ModalBtn>
+          <ModalsBtn  className="close-btn" onClick={openModalHandler}>
+            취소
+          </ModalsBtn>
           </MypageBtn>
         </center>
                   </ModalView>
@@ -130,7 +145,7 @@ export default function Mypage(props) {
           탈퇴가 완료되었습니다.
           </div>
           <MypageBtn>          
-          <ModalBtn  className="close-btn" onClick={openDeleteHandler}>
+          <ModalBtn onClick={openDeleteHandler}>
             확인
           </ModalBtn>
           </MypageBtn>

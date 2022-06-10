@@ -106,7 +106,7 @@ export default function Login ({ handleResponseSuccess }) {
             />
           </div>
           <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-          <ModalBtn  className="close-btn" onClick={handleLogin}>
+          <ModalBtn  onClick={handleLogin}>
             로그인
           </ModalBtn>
           <br /><br />
@@ -116,7 +116,9 @@ export default function Login ({ handleResponseSuccess }) {
           </ModalBtn>
           </div>
           <div className='alert-box'>{errorMessage}</div>
+
           <Signup show={signUpModalOn} onHide={() => setSignUpModalOn(false)} />
+
         </form>
       </center>         
                     </ModalView>
