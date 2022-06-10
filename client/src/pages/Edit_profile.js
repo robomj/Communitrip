@@ -58,7 +58,7 @@ export default function EditProfile(props) {
         <div>이름 : </div><Input type="text" onChange={handleInputValue('name')} />
         <br /><br />
         <div>e-mail : </div><Emails>
-           {props.userinfo.email}
+          {props.userinfo.email}
         </Emails>
         <br />
         

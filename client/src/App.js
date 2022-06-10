@@ -53,7 +53,7 @@ function App() {
         <Navbar  bg="light" variant="light" className="nav">
           <Container>
             <Navbar.Brand href="/">Logo</Navbar.Brand>
-            <Nav className="me-auto" class='nav justify-content-end' >
+            <Nav className="nav justify-content-end" >
               <Nav.Link 
                 href="/"
                 onClick={() => {
@@ -81,7 +81,7 @@ function App() {
               
               <Nav.Link 
                 onClick={() => {
-                 onLoginModalHandler()
+                onLoginModalHandler()
                 }}
               >
                 Login

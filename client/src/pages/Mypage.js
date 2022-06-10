@@ -90,7 +90,7 @@ export default function Mypage(props) {
         이름 :<Myinfobox > {props.userinfo.name}</Myinfobox>
         <br /><br />
         e-mail :<Myinfobox>
-           {props.userinfo.email}
+          {props.userinfo.email}
         </Myinfobox>
         
       </Mypages>

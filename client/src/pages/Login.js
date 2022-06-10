@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
+import Signup from './Signup/Signup'
 axios.defaults.withCredentials = true;
 
 export const ModalContainer = styled.div`
@@ -54,6 +55,7 @@ z-index: 1011;
 
 export default function Login ({ handleResponseSuccess }) {
   const [isOpen, setIsOpen] = useState(true);
+  const [signUpModalOn, setSignUpModalOn] = useState(false);
 
   const openModalHandler = () => { 
     setIsOpen(!isOpen);
@@ -81,6 +83,7 @@ export default function Login ({ handleResponseSuccess }) {
       setErrorMessage('이메일과 비밀번호를 입력하세요')
     }
   };
+
   return (
     <div>
 
@@ -108,11 +111,12 @@ export default function Login ({ handleResponseSuccess }) {
           </ModalBtn>
           <br /><br />
           <div>
-          <ModalBtn  className="close-btn" onClick={() => {navigate('/signup');openModalHandler()}} >
+          <ModalBtn  className="close-btn" onClick={() => setSignUpModalOn(true)} >
             회원가입
           </ModalBtn>
           </div>
           <div className='alert-box'>{errorMessage}</div>
+          <Signup show={signUpModalOn} onHide={() => setSignUpModalOn(false)} />
         </form>
       </center>         
                     </ModalView>
