@@ -76,6 +76,7 @@ export default function Signup({show, onHide}) {
       setErrPasswordChecked('');
     }
   }, [signupInfo]);
+  console.log(show)
 
   const handleSignup = () => {
     if(signupInfo.email !== '' && signupInfo.password !=='' && signupInfo.name !==''){
@@ -84,13 +85,14 @@ export default function Signup({show, onHide}) {
         email:signupInfo.email,
         password:signupInfo.password,
       })
+      
+      setErrorMessage('')
       navigate('/')
     }else{
       setErrorMessage('모든 항목은 필수입니다')
     }
   };
 
-  console.log(signupInfo)
   return (
     <div>
       <SignUpModal
@@ -159,7 +161,10 @@ export default function Signup({show, onHide}) {
               variant='primary'
               type='button' 
               className='SingupBtn' 
-              onClick={handleSignup}
+              onClick={() => {
+                handleSignup()
+                onHide()
+              }}
             >
               회원가입
             </Button>

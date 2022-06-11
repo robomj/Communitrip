@@ -9,6 +9,8 @@ import Main from "./pages/Main";
 import axios from 'axios';
 import Board from './pages/Board';
 import Boardpostform from './pages/Boardpostform';
+import Post_edit from './pages/Create_post';
+import Create_post from './pages/Create_post';
 
 
 function App() {
@@ -113,7 +115,7 @@ function App() {
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
     <Route path="/board" element={<Board postsinfo={postsinfo} />} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
-
+    <Route path="/create_post" element={<Create_post userinfo ={userinfo} />} />
 </Routes>
 </div>
     )
