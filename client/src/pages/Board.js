@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import styled from 'styled-components';
 import axios from 'axios';
 import Boardpostform from './Boardpostform';
-import { dummyPost } from '../dummy.js';
+
 
 
 export const Allpage = styled.div`
@@ -15,6 +15,9 @@ export const Options = styled.div`
 width : 99vw;
 height : 4vh;
 background-color : green;
+`
+export const Boardbutton = styled.button`
+margin-right : 25px
 `
 export const ViewBoard =styled.div`
 width : 99vw;
@@ -50,10 +53,13 @@ return(
     <Vboard>
       <Vboards>
       {props.postsinfo&&props.postsinfo.map((posts)=>
+            <Boardbutton>
             <Boardpostform 
             posts={posts}
             key={posts.id}
-            />)}
+            />
+            </Boardbutton>
+            )}
       </Vboards>
     </Vboard>
     </ViewBoard>
