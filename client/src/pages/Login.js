@@ -61,6 +61,10 @@ export default function Login ({ handleResponseSuccess }) {
     setIsOpen(!isOpen);
   };
 
+  const openSignUpHandler = () => {
+    setSignUpModalOn(!signUpModalOn)
+  }
+
   const navigate= useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -111,7 +115,7 @@ export default function Login ({ handleResponseSuccess }) {
           </ModalBtn>
           <br /><br />
           <div>
-          <ModalBtn  className="close-btn" onClick={() => setSignUpModalOn(true)} >
+          <ModalBtn  className="close-btn" onClick={setSignUpModalOn} >
             회원가입
           </ModalBtn>
           </div>
