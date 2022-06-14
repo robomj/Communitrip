@@ -14,7 +14,7 @@ app.use(cors({
 db.sequelize.sync().then(() => {
     console.log('db 연결 성공')
 }).catch((err) => {
-    console.log('err')
+    console.log(err)
 })
 
 app.use(express.json())
