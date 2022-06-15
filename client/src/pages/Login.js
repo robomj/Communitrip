@@ -1,10 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, Component } from 'react';
+import { Button } from 'react-bootstrap'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
-import Signup from './Signup/Signup'
-axios.defaults.withCredentials = true;
+import Signup from './Signup/Signup';
+import KaKaoLogin from 'react-kakao-login'
 
+//import { REST_API_KEY, REDIRECT_URI} from './KakaoLogindata'
+
+axios.defaults.withCredentials = true;
+const KaKaoBtn = styled(KaKaoLogin)`
+  padding: 0;
+  width: 300px;
+  height: 45px;
+  line-height: 44px;
+  color: #783c00;
+  background-color: #ffeb00;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
+  }
+`;
 export const ModalContainer = styled.div`
   display : flex;
   justify-content: center;
@@ -53,14 +74,26 @@ transform: translate(-50%, -50%);
 z-index: 1011;
 `;
 
+
 export default function Login ({ handleResponseSuccess }) {
+
+const responseKaKao = (res) => {
+  console.log(res.profile.kakao_account)
+  axios.post('http://localhost:8080/kakao/login',{
+        data: res.profile.kakao_account
+        
+      }).then()
+      alert('로그인 성공하였습니다')
+      openModalHandler();
+};
+
   const [isOpen, setIsOpen] = useState(true);
   const [signUpModalOn, setSignUpModalOn] = useState(false);
 
   const openModalHandler = () => { 
     setIsOpen(!isOpen);
   };
-
+ 
   const navigate= useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -84,7 +117,9 @@ export default function Login ({ handleResponseSuccess }) {
     }
   };
 
+ 
   return (
+    
     <div>
 
           {isOpen ? <ModalBackdrop onClick={openModalHandler}>
@@ -105,7 +140,31 @@ export default function Login ({ handleResponseSuccess }) {
               onChange={handleInputValue('password')}
             />
           </div>
-          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <br /><br /><br /><br /><br /><br /><br /><br />
+          {/* <KaKaoBtn onClick={handlekakaoLogin}>카카오 로그인</KaKaoBtn> */}
+          {/* <button  onClick={() => {handlekakao()}} href="javascript:void(0)" >
+          <span>카카오 로그인</span>
+          </button>
+      
+         
+      
+  
+   <button onclick={handlekakaologout} href="javascript:void(0)">
+        
+            <span>카카오 로그아웃</span>
+        
+    </button> */}
+    <KaKaoBtn
+    //styled component 통해 style을 입혀 줄 예정 
+                jsKey={'b30b4663aa8893c9e6cfb686d083f99b'}
+    //카카오에서 할당받은 jsKey를 입력
+                buttonText='카카오 계정으로 로그인'
+    //로그인 버튼의 text를 입력
+    onSuccess={responseKaKao}
+    //성공했을때 불러올 함수로서 fetch해서 localStorage에 저장할 함수를 여기로 저장 
+                getProfile={true}
+              />
+            <br /><br />
           <ModalBtn  onClick={handleLogin}>
             로그인
           </ModalBtn>

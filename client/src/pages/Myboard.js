@@ -11,6 +11,9 @@ width : 99vw;
 height : 90vh;
 margin: 0 auto;
 `
+export const Boardbutton = styled.button`
+margin-right : 25px
+`
 export const Options = styled.div`
 width : 99vw;
 height : 4vh;
@@ -53,7 +56,7 @@ const isMyposts =() =>{
   }
   useEffect(() => {
     isMyposts();
-  }, [mypostsinfo]);
+  }, [props.userinfo]);
 return(
 <Allpage>
     <Options>
@@ -62,11 +65,16 @@ return(
     <ViewBoard>
     <Vboard>
       <Vboards>
-      {props.postsinfo&&props.postsinfo.map((posts)=>
+      {mypostsinfo&&mypostsinfo.map(posts=>
+            <Boardbutton onClick={() => {}}>
             <Boardpostform 
             posts={posts}
             key={posts.id}
-            />)}
+            />
+            </Boardbutton>
+            
+            )}
+            
       </Vboards>
     </Vboard>
     </ViewBoard>

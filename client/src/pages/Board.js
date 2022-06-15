@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React,{ useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import styled from 'styled-components';
 import axios from 'axios';
@@ -41,9 +41,22 @@ height: 90%;
 export const Postbutton = styled.button`
 float: right;
 `
-export default function Board(props){
-console.log(props.postsinfo)
+export default function Board(){
 const navigate = useNavigate();
+
+  const [postsinfo, setPostsinfo]=useState()
+  const isPosts =() =>{
+    axios.get('http://localhost:8080/posts').then((res)=>{ 
+    const test = res.data.data    
+    setPostsinfo(test)
+      }).catch(error =>{
+        console.log(error)
+      })
+  }
+  useEffect(() => {
+    isPosts();
+  }, []);
+
 return(
 <Allpage>
     <Options>
@@ -52,14 +65,19 @@ return(
     <ViewBoard>
     <Vboard>
       <Vboards>
-      {props.postsinfo&&props.postsinfo.map((posts)=>
-            <Boardbutton>
+      {postsinfo&&postsinfo.map(posts=>
+      {
+          return(
+            <Boardbutton onClick={() => {}} >
             <Boardpostform 
             posts={posts}
             key={posts.id}
+            
             />
             </Boardbutton>
-            )}
+          )
+           } )}
+            
       </Vboards>
     </Vboard>
     </ViewBoard>
@@ -68,9 +86,3 @@ return(
 
 )
 }
-
-        /*{postsinfo.map((posts, idx)=>(
-            <Boardpostform 
-            posts={posts}
-            key={idx}
-            />))}*/

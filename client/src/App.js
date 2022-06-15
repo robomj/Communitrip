@@ -11,6 +11,9 @@ import Board from './pages/Board';
 import Boardpostform from './pages/Boardpostform';
 import styled from 'styled-components';
 import Myboard from './pages/Myboard';
+import KakaoLogin from './pages/KakaoLogin'
+
+
 export const ModalBackdrop = styled.div`
 position: fixed;
 display: flex;
@@ -29,7 +32,6 @@ export const ModalBtn = styled.button`
   text-decoration: none;
   border: none;
   padding: 20px;
-  margin-right: 25px;
   color: white;
   border-radius: 30px;
   cursor: pointer;
@@ -53,16 +55,9 @@ z-index: 1011;
 function App() {
     const navigate = useNavigate();
     const [userinfo, setUserinfo] = useState({});
-    const [postsinfo, setPostsinfo]=useState()
+
     console.log(userinfo)
-    const isPosts =() =>{
-      axios.get('http://localhost:8080/posts').then((res)=>{ 
-      const test = res.data.data    
-      setPostsinfo(test)
-        }).catch(error =>{
-          console.log(error)
-        })
-    }
+
 
     
     const isAuthenticated = () => {
@@ -103,7 +98,7 @@ function App() {
     };
 
     useEffect(() => {
-      isAuthenticated();isPosts();
+      isAuthenticated();
     }, []);
 
     return (
@@ -131,7 +126,7 @@ function App() {
               <Nav.Link 
                 href="mypage"
                 onClick={() => {
-                  navigate("/mypage");
+                  //navigate("/mypage");
                 }}
               >
                 마이페이지
@@ -171,13 +166,14 @@ function App() {
                   </ModalView>
                   </ModalBackdrop> : null}              
 <Routes>
-    <Route path="/" element={<Main />}  postsinfo={postsinfo} userinfo = {userinfo} />
+    <Route path="/" element={<Main />}   userinfo = {userinfo} />
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
-    <Route path="/board" element={<Board postsinfo={postsinfo} />} />
+    <Route path="/board" element={<Board  />} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
     <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
+    {/* <Route path="/auth/callback/kakao" element={<KakaoLogin />} /> */}
 </Routes>
 </div>
     )
