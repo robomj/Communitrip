@@ -27,6 +27,7 @@ transform: translate(-50%, -50%);
 }
 `
 
+
 export default function Signup({show, onHide}) {
 
   const [signupInfo, setSignupInfo] = useState({
@@ -76,7 +77,6 @@ export default function Signup({show, onHide}) {
       setErrPasswordChecked('');
     }
   }, [signupInfo]);
-  console.log(show)
 
   const handleSignup = () => {
     if(signupInfo.email !== '' && signupInfo.password !=='' && signupInfo.name !==''){
