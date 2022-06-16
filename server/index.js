@@ -41,7 +41,7 @@ app.get('/posts/users/:userId', controllers.mypost) /** 유저가 좋아요 누�
 app.patch('/posts/:postId', controllers.patchpost) /** 게시물 수정 */
 
 app.get('/tags', controllers.gettags) /** 게시물 태그 얻기 */
-app.get('/tags/:tagId', controllers.getpostsbytags) /** 태그에 해당하는 게물 얻기 */
+app.get('/tags/:tagId', controllers.getpostsbytags) /** 태그에 해당하는 게시물 얻기 */
 
 app.post('/kakao/login', controllers.kakaologin) /** 카카오 로그인 */
 

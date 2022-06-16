@@ -18,6 +18,7 @@ function App() {
     });
     const [postsinfo, setPostsinfo]=useState()
     console.log(userinfo)
+    
     const isPosts =() =>{
       axios.get('http://localhost:8080/posts').then((res)=>{ 
       const test = res.data.data    
@@ -45,7 +46,7 @@ function App() {
     const handleResponseSuccess = () => {
       isAuthenticated();
     };
-    const handleLogout =() =>{
+    const handleLogout = () =>{
       
       axios.post('http://localhost:8080/users/logout').then((res)=>{
         setUserinfo(null);
@@ -54,10 +55,21 @@ function App() {
       })
     }
     const [isLogin, setIsLogin] = useState(false);
+    // const [tags, setTags] = useState()
     const [onLoginModal, setOnLoginModal]=useState(false)
     const onLoginModalHandler =() =>{
       setOnLoginModal(!onLoginModal);
     }
+
+    // const isTags = () => {
+    //   axios.get('http://localhost:8080/tags').then((res)=> {
+    //     const test = res.data.data
+    //     console.log(test)
+    //     setTags(test)
+    //   }).catch(error => {
+    //     console.log(error)
+    //   })
+    // }
   
     useEffect(() => {
       isAuthenticated();isPosts();

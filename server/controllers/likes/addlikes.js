@@ -2,6 +2,9 @@ const { posts, likes } = require('../../models')
 
 module.exports = (req, res) => {
     likes.findOne({
+        attributes: {
+            exclude: ['postId', 'userId']
+        },
         where: {
             user_id: req.body.user_id
         }
@@ -10,6 +13,9 @@ module.exports = (req, res) => {
             res.status(400).json({ message: '로그인 먼저 하세요' })
         } else {
             posts.findOne({
+                attributes: {
+                    exclude: ['userId']
+                },
                 where: {
                     id: req.body.post_id
                 }
