@@ -9,16 +9,57 @@ import Main from "./pages/Main";
 import axios from 'axios';
 import Board from './pages/Board';
 import Boardpostform from './pages/Boardpostform';
+import styled from 'styled-components';
+import Myboard from './pages/Myboard';
+import KakaoLogin from './pages/KakaoLogin'
 import Post_edit from './pages/Create_post';
 import Create_post from './pages/Create_post';
 
 
 
+
+export const ModalBackdrop = styled.div`
+position: fixed;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100vw;
+height: 100vh;
+background-color : none;
+`;
+export const MypageBtn = styled.div`
+text-align: center;
+margin-top: 20px;
+`
+export const ModalBtn = styled.button`
+  background-color: #4000c7;
+  text-decoration: none;
+  border: none;
+  padding: 20px;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+`;
+export const ModalView = styled.div`
+background-color: white;
+width: 40%;
+min-width: 100px;
+max-width: 300px;
+height: 20%;
+overflow-y: auto;
+border:solid;
+position: fixed;
+left: 50%;
+top: 50%;
+padding: 5px;
+transform: translate(-50%, -50%);
+z-index: 1011;
+`;
+
+
 function App() {
     const navigate = useNavigate();
-    const [userinfo, setUserinfo] = useState({
-
-    });
+    const [userinfo, setUserinfo] = useState({});
     const [postsinfo, setPostsinfo]=useState()
     const [tags, setTags] = useState()
     console.log(userinfo)
@@ -39,6 +80,7 @@ function App() {
         console.log(error)
       })
     }
+
     const isAuthenticated = () => {
       axios.get('http://localhost:8080/users/auth').then((res) =>{
         
@@ -67,11 +109,16 @@ function App() {
       })
     }
     const [isLogin, setIsLogin] = useState(false);
+    console.log(isLogin)
     const [onLoginModal, setOnLoginModal]=useState(false)
     const onLoginModalHandler =() =>{
       setOnLoginModal(!onLoginModal);
     }
-  
+    const [isLogout, setIsLogout] = useState(false);
+    const openLogoutHandler = () => { 
+      setIsLogout(!isLogout);
+    };
+
     useEffect(() => {
       isAuthenticated();
       isPosts();
@@ -95,7 +142,7 @@ function App() {
               <Nav.Link 
                 href="myboard"
                 onClick={() => {
-                  /*navigate("/mypage");*/
+                  navigate("/myboard");
                 }}
               >
                 나의게시판
@@ -103,12 +150,19 @@ function App() {
               <Nav.Link 
                 href="mypage"
                 onClick={() => {
-                  navigate("/mypage");
+                  //navigate("/mypage");
                 }}
               >
                 마이페이지
               </Nav.Link>
-              
+              <Nav.Link 
+                
+                onClick={() => {
+                  openLogoutHandler();
+                }}
+              >
+                Logout
+              </Nav.Link>
               <Nav.Link 
                 onClick={() => {
                 onLoginModalHandler()
@@ -120,15 +174,30 @@ function App() {
             </Nav>
           </Container>
         </Navbar>
-              
+        {isLogout ? <ModalBackdrop onClick={openLogoutHandler}>
+                    <ModalView onClick={(event) => {event.stopPropagation()}}>  
+        <center>
+        <br />
+        <div>
+        로그아웃 하시겠습니까?
+        </div>
+        <MypageBtn>          
+        <ModalBtn onClick={() => {openLogoutHandler();handleLogout()}}>
+           확인
+        </ModalBtn>
+        </MypageBtn>
+       </center>
+                  </ModalView>
+                  </ModalBackdrop> : null}              
 <Routes>
-    <Route path="/" element={<Main />}  postsinfo={postsinfo} userinfo = {userinfo} />
+    <Route path="/" element={<Main />}   userinfo = {userinfo} />
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
     <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} />} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
     <Route path="/create_post" element={<Create_post userinfo ={userinfo} tags={tags} />} />
+    <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
 </Routes>
 </div>
     )
