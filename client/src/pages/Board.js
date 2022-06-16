@@ -68,7 +68,7 @@ return(
       {postsinfo&&postsinfo.map(posts=>
       {
           return(
-            <Boardbutton onClick={() => {}} >
+            <Boardbutton onClick={() => {console.log(posts)}} >
             <Boardpostform 
             posts={posts}
             key={posts.id}

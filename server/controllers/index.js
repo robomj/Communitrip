@@ -13,6 +13,7 @@ module.exports = {
     mypost: require('./posts/mypost'),
     patchpost: require('./posts/patchpost'),
     gettags: require('./tags/gettags'),
+    getpostsbytags: require('./tags/getpostsbytags'),
     createcomment: require('./comments/createcomment'),
     deletecomment: require('./comments/deletecomment'),
     getcomments: require('./comments/getcomments'),
@@ -20,4 +21,5 @@ module.exports = {
     addlikes: require('./likes/addlikes'),
     deletelikes: require('./likes/deletelikes'),
     getlikes: require('./likes/getlikes'),
+    kakaologin: require('./kakao/kakaologin'),
 }

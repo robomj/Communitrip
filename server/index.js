@@ -14,7 +14,7 @@ app.use(cors({
 db.sequelize.sync().then(() => {
     console.log('db 연결 성공')
 }).catch((err) => {
-    console.log('err')
+    console.log(err)
 })
 
 app.use(express.json())
@@ -42,6 +42,9 @@ app.get('/posts/users/:userId', controllers.mypost) /** 유저가 좋아요 누�
 app.patch('/posts/:postId', controllers.patchpost) /** 게시물 수정 */
 
 app.get('/tags', controllers.gettags) /** 게시물 태그 얻기 */
+app.get('/tags/:tagId', controllers.getpostsbytags) /** 태그에 해당하는 게물 얻기 */
+
+app.post('/kakao/login', controllers.kakaologin) /** 카카오 로그인 */
 
 app.post('/posts/:postId/comments', controllers.createcomment) /** 댓글 생성 */
 app.delete('/posts/:postId/comments/:commentsId', controllers.deletecomment) /** 댓글 삭제 */

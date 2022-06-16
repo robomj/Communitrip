@@ -12,6 +12,9 @@ import Boardpostform from './pages/Boardpostform';
 import styled from 'styled-components';
 import Myboard from './pages/Myboard';
 import KakaoLogin from './pages/KakaoLogin'
+import Post_edit from './pages/Create_post';
+import Create_post from './pages/Create_post';
+
 
 
 export const ModalBackdrop = styled.div`
@@ -55,7 +58,7 @@ z-index: 1011;
 function App() {
     const navigate = useNavigate();
     const [userinfo, setUserinfo] = useState({});
-
+    
     console.log(userinfo)
 
 
@@ -88,6 +91,7 @@ function App() {
       })
     }
     const [isLogin, setIsLogin] = useState(false);
+    console.log(isLogin)
     const [onLoginModal, setOnLoginModal]=useState(false)
     const onLoginModalHandler =() =>{
       setOnLoginModal(!onLoginModal);
@@ -174,6 +178,7 @@ function App() {
     <Route path="/boardpostform" element={<Boardpostform  />} />
     <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
     {/* <Route path="/auth/callback/kakao" element={<KakaoLogin />} /> */}
+    <Route path="/create_post" element={<Create_post userinfo ={userinfo} />} />
 </Routes>
 </div>
     )

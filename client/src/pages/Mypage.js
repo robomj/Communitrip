@@ -98,6 +98,7 @@ export default function Mypage(props) {
       navigate('/')
     })
   }
+  console.log(props)
   return (
     <div>
       <Mypages>

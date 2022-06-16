@@ -84,6 +84,7 @@ const responseKaKao = (res) => {
         
       }).then()
       alert('로그인 성공하였습니다')
+      navigate('/')
       openModalHandler();
 };
 
@@ -93,7 +94,15 @@ const responseKaKao = (res) => {
   const openModalHandler = () => { 
     setIsOpen(!isOpen);
   };
+
  
+
+
+  const openSignUpHandler = () => {
+    setSignUpModalOn(!signUpModalOn)
+  }
+
+
   const navigate= useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -170,7 +179,7 @@ const responseKaKao = (res) => {
           </ModalBtn>
           <br /><br />
           <div>
-          <ModalBtn  className="close-btn" onClick={() => setSignUpModalOn(true)} >
+          <ModalBtn  className="close-btn" onClick={openSignUpHandler} >
             회원가입
           </ModalBtn>
           </div>
