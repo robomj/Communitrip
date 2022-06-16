@@ -165,7 +165,7 @@ const responseKaKao = (res) => {
     </button> */}
     <KaKaoBtn
     //styled component 통해 style을 입혀 줄 예정 
-                jsKey={'b30b4663aa8893c9e6cfb686d083f99b'}
+                jsKey={process.env.REACT_APP_KAKAOINIT}
     //카카오에서 할당받은 jsKey를 입력
                 buttonText='카카오 계정으로 로그인'
     //로그인 버튼의 text를 입력

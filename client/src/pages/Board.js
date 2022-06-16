@@ -41,7 +41,10 @@ height: 90%;
 export const Postbutton = styled.button`
 float: right;
 `
-export default function Board(){
+
+export default function Board(props){
+console.log(props.postsinfo)
+
 const navigate = useNavigate();
 
   const [postsinfo, setPostsinfo]=useState()

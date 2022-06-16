@@ -17,6 +17,7 @@ import Create_post from './pages/Create_post';
 
 
 
+
 export const ModalBackdrop = styled.div`
 position: fixed;
 display: flex;
@@ -55,14 +56,31 @@ transform: translate(-50%, -50%);
 z-index: 1011;
 `;
 
+
 function App() {
     const navigate = useNavigate();
     const [userinfo, setUserinfo] = useState({});
-    
+    const [postsinfo, setPostsinfo]=useState()
+    const [tags, setTags] = useState()
     console.log(userinfo)
+    const isPosts =() =>{
+      axios.get('http://localhost:8080/posts').then((res)=>{ 
+      const test = res.data.data    
+      setPostsinfo(test)
+        }).catch(error =>{
+          console.log(error)
+        })
+    }
+    const isTags = () => {
+      axios.get('http://localhost:8080/tags').then((res)=> {
+        const test = res.data.data
+        console.log(test)
+        setTags(test)
+      }).catch(error => {
+        console.log(error)
+      })
+    }
 
-
-    
     const isAuthenticated = () => {
       axios.get('http://localhost:8080/users/auth').then((res) =>{
         
@@ -103,6 +121,8 @@ function App() {
 
     useEffect(() => {
       isAuthenticated();
+      isPosts();
+      isTags();
     }, []);
 
     return (
@@ -174,11 +194,10 @@ function App() {
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
-    <Route path="/board" element={<Board  />} />
+    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} />} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
+    <Route path="/create_post" element={<Create_post userinfo ={userinfo} tags={tags} />} />
     <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
-    {/* <Route path="/auth/callback/kakao" element={<KakaoLogin />} /> */}
-    <Route path="/create_post" element={<Create_post userinfo ={userinfo} />} />
 </Routes>
 </div>
     )
