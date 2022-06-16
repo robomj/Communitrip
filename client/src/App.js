@@ -13,12 +13,14 @@ import Post_edit from './pages/Create_post';
 import Create_post from './pages/Create_post';
 
 
+
 function App() {
     const navigate = useNavigate();
     const [userinfo, setUserinfo] = useState({
 
     });
     const [postsinfo, setPostsinfo]=useState()
+    const [tags, setTags] = useState()
     console.log(userinfo)
     const isPosts =() =>{
       axios.get('http://localhost:8080/posts').then((res)=>{ 
@@ -27,6 +29,15 @@ function App() {
         }).catch(error =>{
           console.log(error)
         })
+    }
+    const isTags = () => {
+      axios.get('http://localhost:8080/tags').then((res)=> {
+        const test = res.data.data
+        console.log(test)
+        setTags(test)
+      }).catch(error => {
+        console.log(error)
+      })
     }
     const isAuthenticated = () => {
       axios.get('http://localhost:8080/users/auth').then((res) =>{
@@ -62,7 +73,9 @@ function App() {
     }
   
     useEffect(() => {
-      isAuthenticated();isPosts();
+      isAuthenticated();
+      isPosts();
+      isTags();
     }, []);
 
     return (
@@ -113,9 +126,9 @@ function App() {
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
-    <Route path="/board" element={<Board postsinfo={postsinfo} />} />
+    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} />} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
-    <Route path="/create_post" element={<Create_post userinfo ={userinfo} />} />
+    <Route path="/create_post" element={<Create_post userinfo ={userinfo} tags={tags} />} />
 </Routes>
 </div>
     )
