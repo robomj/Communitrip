@@ -58,26 +58,20 @@ float: right;
 // `;
 
 const OPTIONS = [
-    { id: 1, value: "tags", name: "태그 선택"},
+    { id: 1, value: "tags", name: "태그 선택" },
     { id: 2, value: "mountain", name: "산", post_id: "1" },
     { id: 3, value: "river", name: "강", post_id: "2" },
-    { id: 4, value: "sea", name: "바다", post_id: "3"},
-    { id: 5, value: "valley", name: "계곡", post_id: "4"},
+    { id: 4, value: "sea", name: "바다", post_id: "3" },
+    { id: 5, value: "valley", name: "계곡", post_id: "4" },
 ];
 
 
 const SelectBox = (props) => {
     const [tags, setTags] = useState('')
-    const [postsByTags, setPostsByTags] = useState('');
-
-    useEffect(() => {
-        console.log('tags changed')
-    })
 
     const handleTags = (e) => {
         axios.get(`http://localhost:8080/tags/${e.target.value}`).then((result) => {
-            setPostsByTags(result)
-            console.log(postsByTags)
+            props.setPostsByTags(result)
         })
         setTags(e.target.value)
     }
@@ -99,29 +93,30 @@ const SelectBox = (props) => {
 
 
 export default function Board(props) {
-    // console.log(props.postsinfo)
+    console.log(props.postsinfo)
     const navigate = useNavigate();
 
-    const [changedPosts, setChangedPosts] = useState('')
-
-    useEffect(() => {
-
-    })
-    
     return (
         <Allpage>
             <Options>
-                <SelectBox options={OPTIONS} defaultValue="태그 선택"/>
+                <SelectBox options={OPTIONS} postsByTags={props.postsByTags} setPostsByTags={props.setPostsByTags} defaultValue="태그 선택" />
                 게시글 나열 방식  <Postbutton onClick={() => { navigate('/create_post'); }}>글쓰기</Postbutton>
             </Options>
             <ViewBoard>
                 <Vboard>
                     <Vboards>
-                        {changedPosts ? console.log(changedPosts) : props.postsinfo && props.postsinfo.map((posts) =>
-                            <Boardpostform
-                                posts={posts}
-                                key={posts.id}
-                            />)}
+                        {props.postsByTags === '' ?
+                            props.postsinfo && props.postsinfo.map((posts) =>
+                                <Boardpostform
+                                    posts={posts}
+                                    key={posts.id}
+                                />) :
+                                props.postsByTags.data.results.map((posts) => 
+                                    <Boardpostform
+                                    posts={posts}
+                                    key={posts.id}
+                                />) 
+                            }
                     </Vboards>
                 </Vboard>
             </ViewBoard>

@@ -16,9 +16,11 @@ function App() {
     const [userinfo, setUserinfo] = useState({
 
     });
+    const [postsByTags, setPostsByTags] = useState('');
     const [postsinfo, setPostsinfo]=useState()
     console.log(userinfo)
-    
+
+
     const isPosts =() =>{
       axios.get('http://localhost:8080/posts').then((res)=>{ 
       const test = res.data.data    
@@ -55,21 +57,21 @@ function App() {
       })
     }
     const [isLogin, setIsLogin] = useState(false);
-    // const [tags, setTags] = useState()
+    const [tags, setTags] = useState()
     const [onLoginModal, setOnLoginModal]=useState(false)
     const onLoginModalHandler =() =>{
       setOnLoginModal(!onLoginModal);
     }
 
-    // const isTags = () => {
-    //   axios.get('http://localhost:8080/tags').then((res)=> {
-    //     const test = res.data.data
-    //     console.log(test)
-    //     setTags(test)
-    //   }).catch(error => {
-    //     console.log(error)
-    //   })
-    // }
+    const isTags = () => {
+      axios.get('http://localhost:8080/tags').then((res)=> {
+        const test = res.data.data
+        console.log(test)
+        setTags(test)
+      }).catch(error => {
+        console.log(error)
+      })
+    }
   
     useEffect(() => {
       isAuthenticated();isPosts();
@@ -123,7 +125,7 @@ function App() {
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
-    <Route path="/board" element={<Board postsinfo={postsinfo} />} />
+    <Route path="/board" element={<Board postsinfo={postsinfo} postsByTags={postsByTags} setPostsByTags={setPostsByTags}/>} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
 
 </Routes>
