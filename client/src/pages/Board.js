@@ -1,5 +1,5 @@
 import React,{ useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import Boardpostform from './Boardpostform';
@@ -43,11 +43,16 @@ float: right;
 `
 
 export default function Board(props){
-console.log(props.postsinfo)
 
+console.log(props)
 const navigate = useNavigate();
-
+  const [tests,settests]=useState()
+  console.log(tests)
+  props.onepostinfo(tests)
+  
+   console.log(props.onepostinfo(tests))
   const [postsinfo, setPostsinfo]=useState()
+  console.log(postsinfo)
   const isPosts =() =>{
     axios.get('http://localhost:8080/posts').then((res)=>{ 
     const test = res.data.data    
@@ -60,9 +65,15 @@ const navigate = useNavigate();
     isPosts();
   }, []);
 
+  const handlemovepost=(e)=>{
+console.log(e)
+navigate('/post',{state: {post:e}})
+  }
 return(
+  
 <Allpage>
     <Options>
+
         태그선택  게시글 나열 방식  <Postbutton onClick={() => {navigate('/create_post');}}>글쓰기</Postbutton>
     </Options>
     <ViewBoard>
@@ -71,12 +82,13 @@ return(
       {postsinfo&&postsinfo.map(posts=>
       {
           return(
-            <Boardbutton onClick={() => {console.log(posts)}} >
+            <Boardbutton onClick={() => {settests(posts);handlemovepost(posts)}} >
             <Boardpostform 
             posts={posts}
             key={posts.id}
             
             />
+            
             </Boardbutton>
           )
            } )}
