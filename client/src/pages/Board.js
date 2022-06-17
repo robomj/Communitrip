@@ -57,6 +57,9 @@ const SelectBox = (props) => {
     const [tags, setTags] = useState('')
 
     const handleTags = (e) => {
+        if(e.target.value === "태그 선택") {
+            props.setPostsByTags('')
+        }
         axios.get(`http://localhost:8080/tags/${e.target.value}`).then((result) => {
             props.setPostsByTags(result)
         })
