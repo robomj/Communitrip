@@ -3,7 +3,6 @@ import { Routes, Route, useNavigate } from "react-router";
 import styled from 'styled-components';
 import axios from 'axios';
 import Boardpostform from './Boardpostform';
-import Select from 'react-select'
 import { dummyPost } from '../dummy.js';
 
 
