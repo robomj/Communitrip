@@ -50,6 +50,7 @@ export default function Create_post(props) {
     latitude: '',
   });
   const [coordinate, setCoordinate] = useState("");
+  // const [coordinate2, setCoordinate2] = useState("");
   const [tagName, setTagName] = useState('태그');
   const [imageSrc, setImageSrc] = useState('');
   const userId = props.userinfo.id
@@ -58,8 +59,11 @@ export default function Create_post(props) {
   console.log(userId)
   console.log(props.tags)
   console.log('렌더링...')
-  console.log(coordinate.x)
+  // console.log(coordinate2)
   
+  // useEffect(() => {
+  //   setCoordinate2(coordinate)
+  // },[coordinate])
   
   const handleImage = (e) => {
     console.log(e.target.files)
@@ -98,13 +102,21 @@ export default function Create_post(props) {
   }
 
   const handlesucces = () => {
+    const formData = new FormData();
+    formData.append('file', imageSrc)
+    const config = {
+      Headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+    console.log(config)
     if(postInfo.user_id !== '' 
     && postInfo.contents !== '' 
     && postInfo.title !== '' 
     && postInfo.tag_id !== '' 
-    && postInfo.image !== '' 
-    && postInfo.longitude !== '' 
-    && postInfo.latitude !== ''
+    // && postInfo.image !== '' 
+    // && postInfo.longitude !== '' 
+    // && postInfo.latitude !== ''
     ) {
       axios.post(`http://localhost:8080/posts/${userId}`,{
         user_id: postInfo.user_id,
@@ -121,7 +133,7 @@ export default function Create_post(props) {
       )
     } 
   } 
-  console.log(postInfo)
+  // console.log(postInfo)
   return (
     <div>
       <center>
@@ -145,7 +157,7 @@ export default function Create_post(props) {
         </Dropdown.Item>
       })}
     </Dropdownbtn>
-    <div>이미지</div>
+    {/* <div>이미지</div>
     <PreviewDiv>
       <div className="preview" >
         {imageSrc && <img src={imageSrc} alt="preview-img" className="previewImg" />}
@@ -155,6 +167,7 @@ export default function Create_post(props) {
       ref={inputRef}
       type="file" 
       id="real-input" 
+      name='file'
       className="image_inputType_file" 
       style={{ display: "none" }}
       accept="image/*" 
@@ -165,11 +178,11 @@ export default function Create_post(props) {
       />
     <button className="browse-btn" onClick={handleImage}>
       사진업로드
-    </button>
+    </button> */}
     <div>글 작성</div>
       <input type="text" placeholder='글을 작성해주세요' onChange={handlePostInfo('contents')} />
     <div>지도</div>
-      <KakaoMap setCoordinate={setCoordinate} setpostInfo={setpostInfo} coordinate={coordinate}/>
+      {/* <KakaoMap setCoordinate={setCoordinate} setpostInfo={setpostInfo} coordinate={coordinate} postInfo={postInfo} /> */}
       <button onClick={handlesucces} >작성완료</button>
 
     </div>

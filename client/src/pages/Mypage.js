@@ -39,11 +39,11 @@ export const MypageBtn = styled.div`
 text-align: center;
 margin-top: 20px;
 `
-export const LogoutButton = styled.button`
+export const EditButton = styled.button`
 margin-right: 100px;
 width: 120px;
 `
-export const EditButton = styled.button`
+export const SignoutButton = styled.button`
 width: 120px;
 `
 export const ModalBtn = styled.button`
@@ -95,9 +95,10 @@ export default function Mypage(props) {
   const handleSignout =() =>{
     axios.delete(`http://localhost:8080/users/${props.userinfo.id}`)
     .then((data) => {
-      console.log(data)
+      navigate('/')
     })
   }
+  console.log(props)
   return (
     <div>
       <Mypages>
@@ -111,13 +112,13 @@ export default function Mypage(props) {
         
       </Mypages>
       <PageButton>
-        <LogoutButton onClick={() => {
+        <EditButton onClick={() => {
                 navigate('/edit_profile');}}>
           회원정보 수정
-        </LogoutButton>
-        <EditButton onClick={openModalHandler}>
-          회원 탈퇴
         </EditButton>
+        <SignoutButton onClick={openModalHandler}>
+          회원 탈퇴
+        </SignoutButton>
       </PageButton>
       {isOpen ? <ModalBackdrop onClick={openModalHandler}>
                     <ModalView onClick={(event) => {event.stopPropagation()}}>  
@@ -127,7 +128,7 @@ export default function Mypage(props) {
           정말로 회원탈퇴를 하시겠습니까?
           </div>
           <MypageBtn>
-          <ModalBtn  className="close-btn" onClick={() => {openDeleteHandler();handleSignout();{props.handleLogout()}}}>
+          <ModalBtn  className="close-btn" onClick={() => {openDeleteHandler();}}>
             확인
           </ModalBtn>
           <ModalsBtn  className="close-btn" onClick={openModalHandler}>
@@ -145,7 +146,7 @@ export default function Mypage(props) {
           탈퇴가 완료되었습니다.
           </div>
           <MypageBtn>          
-          <ModalBtn onClick={openDeleteHandler}>
+          <ModalBtn onClick={() => {openDeleteHandler();handleSignout();props.handleLogout()}}>
             확인
           </ModalBtn>
           </MypageBtn>
