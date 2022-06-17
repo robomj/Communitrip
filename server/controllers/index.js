@@ -18,8 +18,7 @@ module.exports = {
     deletecomment: require('./comments/deletecomment'),
     getcomments: require('./comments/getcomments'),
     patchcomment: require('./comments/patchcomment'),
-    addlikes: require('./likes/addlikes'),
-    deletelikes: require('./likes/deletelikes'),
     getlikes: require('./likes/getlikes'),
+    changelikes: require('./likes/changelikes'),
     kakaologin: require('./kakao/kakaologin'),
 }
