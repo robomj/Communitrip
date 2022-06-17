@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { Routes, Route, useNavigate } from "react-router";
 import styled from 'styled-components';
 import axios from 'axios';
 import Boardpostform from './Boardpostform';
@@ -17,6 +17,7 @@ width : 99vw;
 height : 7vh;
 background-color : green;
 `
+
 export const ViewBoard = styled.div`
 width : 99vw;
 height : 90vh;
@@ -39,23 +40,9 @@ height: 90%;
 export const Postbutton = styled.button`
 float: right;
 `
-
-// export const Select = styled.select`
-// 	margin: 0;
-// 	min-width: 0;
-// 	display: block;
-// 	width: 10%;
-// 	padding: 8px 8px;
-// 	font-size: inherit;
-// 	line-height: inherit;
-// 	border: 1px solid;
-// 	border-radius: 4px;
-// 	color: inherit;
-// 	background-color: transparent;
-// 	&:focus {
-// 		border-color: red;
-// 	}
-// `;
+export const Boardbutton = styled.button`
+margin-right : 25px;
+`
 
 const OPTIONS = [
     { id: 1, value: "tags", name: "태그 선택" },
@@ -72,6 +59,7 @@ const SelectBox = (props) => {
     const handleTags = (e) => {
         axios.get(`http://localhost:8080/tags/${e.target.value}`).then((result) => {
             props.setPostsByTags(result)
+            console.log(props.postsByTags)
         })
         setTags(e.target.value)
     }
@@ -95,7 +83,30 @@ const SelectBox = (props) => {
 export default function Board(props) {
     // console.log(props.postsinfo)
     const navigate = useNavigate();
-    
+    const [tests, settests] = useState()
+    console.log(tests)
+    props.onepostinfo(tests)
+
+    const [postsinfo, setPostsinfo] = useState()
+
+    const isPosts = () => {
+        axios.get('http://localhost:8080/posts').then((res) => {
+            const test = res.data.data
+            setPostsinfo(test)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+    useEffect(() => {
+        isPosts();
+    }, []);
+
+    const handlemovepost = (e) => {
+        console.log(e)
+        navigate('/post', { state: { post: e } })
+    }
+
+    props.onepostinfo(tests)
     return (
         <Allpage>
             <Options>
@@ -106,17 +117,28 @@ export default function Board(props) {
                 <Vboard>
                     <Vboards>
                         {props.postsByTags === '' ?
-                            props.postsinfo && props.postsinfo.map((posts) =>
-                                <Boardpostform
-                                    posts={posts}
-                                    key={posts.id}
-                                />) :
-                                props.postsByTags.data.results.map((posts) => 
-                                    <Boardpostform
-                                    posts={posts}
-                                    key={posts.id}
-                                />) 
+                            postsinfo && postsinfo.map(posts => {
+                                return (
+                                    <Boardbutton onClick={() => { settests(posts); handlemovepost(posts) }} >
+                                        <Boardpostform
+                                            posts={posts}
+                                            key={posts.id}
+                                        />
+                                    </Boardbutton>
+                                )
+                            }) :
+                            props.postsByTags.data.results.map((posts) => {
+                                return (
+                                    <Boardbutton onClick={() => { settests(posts); handlemovepost(posts) }} >
+                                        <Boardpostform
+                                            posts={posts}
+                                            key={posts.id}
+                                        />
+                                    </Boardbutton>
+                                )
                             }
+                            )
+                        }
                     </Vboards>
                 </Vboard>
             </ViewBoard>
@@ -125,9 +147,3 @@ export default function Board(props) {
 
     )
 }
-
-/*{postsinfo.map((posts, idx)=>(
-    <Boardpostform 
-    posts={posts}
-    key={idx}
-    />))}*/

@@ -9,7 +9,7 @@ const cors =require('cors')
 app.use(cors({
     origin: ['http://localhost:3000'],
     credentials: true,
-    methods: ['GET', 'POST','DELETE', 'OPTIONS']
+    methods: ['GET', 'POST','DELETE','PATCH', 'OPTIONS']
   }));
 db.sequelize.sync().then(() => {
     console.log('db 연결 성공')
@@ -20,6 +20,7 @@ db.sequelize.sync().then(() => {
 app.use(express.json())
 app.use(express.urlencoded({ extended: false })); /** 클라이언트 body 해석 위함 */
 app.use(cookieParser()); /** 요청된 쿠키를 추출하기 위한 미들웨어 req의 cookies속성 부여 */
+
 
 app.get('/', (req, res) => {
     res.json("hello world")

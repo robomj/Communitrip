@@ -27,6 +27,7 @@ transform: translate(-50%, -50%);
 }
 `
 
+
 export default function Signup({show, onHide}) {
 
   const [signupInfo, setSignupInfo] = useState({
@@ -77,6 +78,7 @@ export default function Signup({show, onHide}) {
     }
   }, [signupInfo]);
 
+
   const handleSignup = () => {
     if(signupInfo.email !== '' && signupInfo.password !=='' && signupInfo.name !==''){
       axios.post('http://localhost:8080/users/signup',{
@@ -84,13 +86,14 @@ export default function Signup({show, onHide}) {
         email:signupInfo.email,
         password:signupInfo.password,
       })
+      
+      setErrorMessage('')
       navigate('/')
     }else{
       setErrorMessage('모든 항목은 필수입니다')
     }
   };
 
-  console.log(signupInfo)
   return (
     <div>
       <SignUpModal
@@ -159,7 +162,10 @@ export default function Signup({show, onHide}) {
               variant='primary'
               type='button' 
               className='SingupBtn' 
-              onClick={handleSignup}
+              onClick={() => {
+                handleSignup()
+                onHide()
+              }}
             >
               회원가입
             </Button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { dummyPost } from '../dummy.js';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Postform = styled.div`
@@ -47,6 +47,7 @@ const changeLikes = () => {
 }
 
 export default function Boardpostform({posts}){
+
     return(
         <>
             <Postform key={posts.id}>
@@ -56,6 +57,7 @@ export default function Boardpostform({posts}){
             <Postcontent>{posts.contents}</Postcontent>
             <Postlike>{posts.total_likes}</Postlike>
             </Postforms>
+            
             </Postform>
         </>
     )
