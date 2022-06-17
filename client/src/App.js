@@ -14,6 +14,7 @@ import Myboard from './pages/Myboard';
 import KakaoLogin from './pages/KakaoLogin'
 import Post_edit from './pages/Create_post';
 import Create_post from './pages/Create_post';
+import Post from './pages/Post';
 
 
 
@@ -62,7 +63,12 @@ function App() {
     const [userinfo, setUserinfo] = useState({});
     const [postsinfo, setPostsinfo]=useState()
     const [tags, setTags] = useState()
+    const [onepostinfo, setonepostinfo] =useState({});
+
+    console.log(onepostinfo)
     console.log(userinfo)
+    console.log(postsinfo)
+
     const isPosts =() =>{
       axios.get('http://localhost:8080/posts').then((res)=>{ 
       const test = res.data.data    
@@ -120,10 +126,11 @@ function App() {
     };
 
     useEffect(() => {
+  
       isAuthenticated();
       isPosts();
       isTags();
-    }, []);
+    }, [onepostinfo]);
 
     return (
         <div className="App">
@@ -194,10 +201,11 @@ function App() {
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
-    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} />} />
+    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} onepostinfo={setonepostinfo}/>} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
     <Route path="/create_post" element={<Create_post userinfo ={userinfo} tags={tags} />} />
     <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
+    <Route path="/post" element={<Post />} />
 </Routes>
 </div>
     )

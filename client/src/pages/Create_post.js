@@ -102,9 +102,9 @@ export default function Create_post(props) {
     && postInfo.contents !== '' 
     && postInfo.title !== '' 
     && postInfo.tag_id !== '' 
-    && postInfo.image !== '' 
-    && postInfo.longitude !== '' 
-    && postInfo.latitude !== ''
+    // && postInfo.image !== '' 
+    // && postInfo.longitude !== '' 
+    // && postInfo.latitude !== ''
     ) {
       axios.post(`http://localhost:8080/posts/${userId}`,{
         user_id: postInfo.user_id,
@@ -145,7 +145,7 @@ export default function Create_post(props) {
         </Dropdown.Item>
       })}
     </Dropdownbtn>
-    <div>이미지</div>
+    {/* <div>이미지</div>
     <PreviewDiv>
       <div className="preview" >
         {imageSrc && <img src={imageSrc} alt="preview-img" className="previewImg" />}
@@ -165,11 +165,11 @@ export default function Create_post(props) {
       />
     <button className="browse-btn" onClick={handleImage}>
       사진업로드
-    </button>
+    </button> */}
     <div>글 작성</div>
       <input type="text" placeholder='글을 작성해주세요' onChange={handlePostInfo('contents')} />
     <div>지도</div>
-      <KakaoMap setCoordinate={setCoordinate} setpostInfo={setpostInfo} coordinate={coordinate}/>
+      {/* <KakaoMap setCoordinate={setCoordinate} setpostInfo={setpostInfo} coordinate={coordinate}/> */}
       <button onClick={handlesucces} >작성완료</button>
 
     </div>
