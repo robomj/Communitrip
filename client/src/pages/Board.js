@@ -93,9 +93,9 @@ const SelectBox = (props) => {
 
 
 export default function Board(props) {
-    console.log(props.postsinfo)
+    // console.log(props.postsinfo)
     const navigate = useNavigate();
-
+    
     return (
         <Allpage>
             <Options>
