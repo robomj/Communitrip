@@ -57,10 +57,14 @@ const SelectBox = (props) => {
     const [tags, setTags] = useState('')
 
     const handleTags = (e) => {
-        axios.get(`http://localhost:8080/tags/${e.target.value}`).then((result) => {
-            props.setPostsByTags(result)
-        })
-        setTags(e.target.value)
+        if (e.target.value === "태그 선택") {
+            props.setPostsByTags('')
+        } else {
+            axios.get(`http://localhost:8080/tags/${e.target.value}`).then((result) => {
+                props.setPostsByTags(result)
+            })
+            setTags(e.target.value)
+        }
     }
     return (
         <select onChange={handleTags} value={tags}>
