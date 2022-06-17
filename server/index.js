@@ -42,7 +42,7 @@ app.get('/posts/users/:userId', controllers.mypost) /** 유저가 좋아요 누�
 app.patch('/posts/:postId', controllers.patchpost) /** 게시물 수정 */
 
 app.get('/tags', controllers.gettags) /** 게시물 태그 얻기 */
-app.get('/tags/:tagId', controllers.getpostsbytags) /** 태그에 해당하는 게물 얻기 */
+app.get('/tags/:tagId', controllers.getpostsbytags) /** 태그에 해당하는 게시물 얻기 */
 
 app.post('/kakao/login', controllers.kakaologin) /** 카카오 로그인 */
 
@@ -51,8 +51,7 @@ app.delete('/posts/:postId/comments/:commentsId', controllers.deletecomment) /**
 app.get('/posts/:postId/comments', controllers.getcomments) /** 댓글 갱신 */
 app.patch('/posts/:postId/comments/:commentsId', controllers.patchcomment) /** 댓글 수정 */
 
-app.post('/posts/:postId/likes', controllers.addlikes) /** 좋아요 증가 */
-app.delete('/posts/:postId/likes', controllers.deletelikes) /** 좋아요 감소 */
+app.post('/posts/:postId/likes', controllers.changelikes) /** 좋아요 증가/감소 */
 app.get('/posts/:postId/likes', controllers.getlikes) /** 좋아요 갱신 */
 
 app.listen(port, () => {

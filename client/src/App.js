@@ -60,14 +60,16 @@ z-index: 1011;
 
 function App() {
     const navigate = useNavigate();
-    const [userinfo, setUserinfo] = useState({});
+    const [userinfo, setUserinfo] = useState({
+
+    });
+    const [postsByTags, setPostsByTags] = useState('');
     const [postsinfo, setPostsinfo]=useState()
     const [tags, setTags] = useState()
     const [onepostinfo, setonepostinfo] =useState({});
 
     console.log(onepostinfo)
     console.log(userinfo)
-    console.log(postsinfo)
 
     const isPosts =() =>{
       axios.get('http://localhost:8080/posts').then((res)=>{ 
@@ -106,7 +108,7 @@ function App() {
     const handleResponseSuccess = () => {
       isAuthenticated();
     };
-    const handleLogout =() =>{
+    const handleLogout = () =>{
       
       axios.post('http://localhost:8080/users/logout').then((res)=>{
         setUserinfo(null);
@@ -115,6 +117,7 @@ function App() {
       })
     }
     const [isLogin, setIsLogin] = useState(false);
+
     console.log(isLogin)
     const [onLoginModal, setOnLoginModal]=useState(false)
     const onLoginModalHandler =() =>{
@@ -124,6 +127,7 @@ function App() {
     const openLogoutHandler = () => { 
       setIsLogout(!isLogout);
     };
+
 
     useEffect(() => {
   
@@ -201,7 +205,7 @@ function App() {
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
-    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} onepostinfo={setonepostinfo}/>} />
+    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} onepostinfo={setonepostinfo} postsByTags={postsByTags} setPostsByTags={setPostsByTags}/>} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
     <Route path="/create_post" element={<Create_post userinfo ={userinfo} tags={tags} />} />
     <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
