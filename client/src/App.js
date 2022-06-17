@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Routes, Route, useNavigate } from 'react-router-dom';
@@ -59,168 +59,155 @@ z-index: 1011;
 
 
 function App() {
-    const navigate = useNavigate();
-    const [userinfo, setUserinfo] = useState({
+  const navigate = useNavigate();
+  const [userinfo, setUserinfo] = useState({
 
-    });
-    const [postsByTags, setPostsByTags] = useState('');
-    const [postsinfo, setPostsinfo]=useState()
-    const [tags, setTags] = useState()
-    const [onepostinfo, setonepostinfo] =useState({});
+  });
+  const [postsByTags, setPostsByTags] = useState('');
+  const [postsinfo, setPostsinfo] = useState()
+  const [tags, setTags] = useState()
+  const [onepostinfo, setonepostinfo] = useState({});
 
-    console.log(onepostinfo)
-    console.log(userinfo)
-
-    const isPosts =() =>{
-      axios.get('http://localhost:8080/posts').then((res)=>{ 
-      const test = res.data.data    
+  const isPosts = () => {
+    axios.get('http://localhost:8080/posts').then((res) => {
+      const test = res.data.data
       setPostsinfo(test)
-        }).catch(error =>{
-          console.log(error)
-        })
-    }
-    const isTags = () => {
-      axios.get('http://localhost:8080/tags').then((res)=> {
-        const test = res.data.data
-        console.log(test)
-        setTags(test)
-      }).catch(error => {
-        console.log(error)
-      })
-    }
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+  const isTags = () => {
+    axios.get('http://localhost:8080/tags').then((res) => {
+      const test = res.data.data
+      setTags(test)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 
-    const isAuthenticated = () => {
-      axios.get('http://localhost:8080/users/auth').then((res) =>{
-        
-        if(res.data.data.userInfo !==null){
-          const test= res.data.data.userInfo;
-          setUserinfo(test);
-          setIsLogin(true);
-        }
-        
-      }).catch( error => {
-        console.log(error);
-      })
-      
-    };
-    
-    
-    const handleResponseSuccess = () => {
-      isAuthenticated();
-    };
-    const handleLogout = () =>{
-      
-      axios.post('http://localhost:8080/users/logout').then((res)=>{
-        setUserinfo(null);
-        setIsLogin(false);
-        navigate('/')
-      })
-    }
-    const [isLogin, setIsLogin] = useState(false);
+  const isAuthenticated = () => {
+    axios.get('http://localhost:8080/users/auth').then((res) => {
 
-    console.log(isLogin)
-    const [onLoginModal, setOnLoginModal]=useState(false)
-    const onLoginModalHandler =() =>{
-      setOnLoginModal(!onLoginModal);
-    }
-    const [isLogout, setIsLogout] = useState(false);
-    const openLogoutHandler = () => { 
-      setIsLogout(!isLogout);
-    };
+      if (res.data.data.userInfo !== null) {
+        const test = res.data.data.userInfo;
+        setUserinfo(test);
+        setIsLogin(true);
+      }
+
+    }).catch(error => {
+      console.log(error);
+    })
+
+  };
 
 
-    useEffect(() => {
-  
-      isAuthenticated();
-      isPosts();
-      isTags();
-    }, [onepostinfo]);
+  const handleResponseSuccess = () => {
+    isAuthenticated();
+  };
+  const handleLogout = () => {
 
-    return (
-        <div className="App">
-        <Navbar  bg="light" variant="light" className="nav">
-          <Container>
-            <Navbar.Brand href="/">Logo</Navbar.Brand>
-            <Nav className="nav justify-content-end" >
-              <Nav.Link 
-                href="board"
-                onClick={() => {
-                  navigate('/board');
-                }}
-              >
-                게시판
-              </Nav.Link>
-              <Nav.Link 
-                href="myboard"
-                onClick={() => {
-                  navigate("/myboard");
-                }}
-              >
-                나의게시판
-              </Nav.Link>
-              <Nav.Link 
-                href="mypage"
-                onClick={() => {
-                  //navigate("/mypage");
-                }}
-              >
-                마이페이지
-              </Nav.Link>
-              <Nav.Link 
-                
-                onClick={() => {
-                  openLogoutHandler();
-                }}
-              >
-                Logout
-              </Nav.Link>
-              <Nav.Link 
-                onClick={() => {
+    axios.post('http://localhost:8080/users/logout').then((res) => {
+      setUserinfo(null);
+      setIsLogin(false);
+      navigate('/')
+    })
+  }
+  const [isLogin, setIsLogin] = useState(false);
+
+  const [onLoginModal, setOnLoginModal] = useState(false)
+  const onLoginModalHandler = () => {
+    setOnLoginModal(!onLoginModal);
+  }
+  const [isLogout, setIsLogout] = useState(false);
+  const openLogoutHandler = () => {
+    setIsLogout(!isLogout);
+  };
+
+
+  useEffect(() => {
+
+    isAuthenticated();
+    isPosts();
+    isTags();
+  }, [onepostinfo]);
+
+  return (
+    <div className="App">
+      <Navbar bg="light" variant="light" className="nav">
+        <Container>
+          <Navbar.Brand href="/">Logo</Navbar.Brand>
+          <Nav className="nav justify-content-end" >
+            <Nav.Link
+              href="board"
+              onClick={() => {
+                navigate('/board');
+              }}
+            >
+              게시판
+            </Nav.Link>
+            <Nav.Link
+              href="myboard"
+              onClick={() => {
+                navigate("/myboard");
+              }}
+            >
+              나의게시판
+            </Nav.Link>
+            <Nav.Link
+              href="mypage"
+              onClick={() => {
+                //navigate("/mypage");
+              }}
+            >
+              마이페이지
+            </Nav.Link>
+            <Nav.Link
+
+              onClick={() => {
+                openLogoutHandler();
+              }}
+            >
+              Logout
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
                 onLoginModalHandler()
-                }}
-              >
-                Login
-                {onLoginModal ? <Login /> :null}
-              </Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
-        {isLogout ? <ModalBackdrop onClick={openLogoutHandler}>
-                    <ModalView onClick={(event) => {event.stopPropagation()}}>  
-        <center>
-        <br />
-        <div>
-        로그아웃 하시겠습니까?
-        </div>
-        <MypageBtn>          
-        <ModalBtn onClick={() => {openLogoutHandler();handleLogout()}}>
-           확인
-        </ModalBtn>
-        </MypageBtn>
-       </center>
-                  </ModalView>
-                  </ModalBackdrop> : null}              
-<Routes>
-    <Route path="/" element={<Main />}   userinfo = {userinfo} />
-    <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
-    <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
-    <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
-    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} onepostinfo={setonepostinfo} postsByTags={postsByTags} setPostsByTags={setPostsByTags}/>} />
-    <Route path="/boardpostform" element={<Boardpostform  />} />
-    <Route path="/create_post" element={<Create_post userinfo ={userinfo} tags={tags} />} />
-    <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
-    <Route path="/post" element={<Post />} />
-</Routes>
-</div>
-    )
+              }}
+            >
+              Login
+              {onLoginModal ? <Login /> : null}
+            </Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      {isLogout ? <ModalBackdrop onClick={openLogoutHandler}>
+        <ModalView onClick={(event) => { event.stopPropagation() }}>
+          <center>
+            <br />
+            <div>
+              로그아웃 하시겠습니까?
+            </div>
+            <MypageBtn>
+              <ModalBtn onClick={() => { openLogoutHandler(); handleLogout() }}>
+                확인
+              </ModalBtn>
+            </MypageBtn>
+          </center>
+        </ModalView>
+      </ModalBackdrop> : null}
+      <Routes>
+        <Route path="/" element={<Main />} userinfo={userinfo} />
+        <Route path="/mypage" element={<Mypage userinfo={userinfo} handleLogout={handleLogout} />} />
+        <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess} />} />
+        <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
+        <Route path="/board" element={<Board postsinfo={postsinfo} userinfo={userinfo} onepostinfo={setonepostinfo} postsByTags={postsByTags} setPostsByTags={setPostsByTags} />} />
+        <Route path="/boardpostform" element={<Boardpostform />} />
+        <Route path="/create_post" element={<Create_post userinfo={userinfo} tags={tags} />} />
+        <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
+        <Route path="/post" element={<Post />} />
+      </Routes>
+    </div>
+  )
 }
 
 export default App;
-/*Nav.Link
-href="my-Wise-saying"
-onClick={() => {
-  navigate("/my-Wise-saying");
-}}
->
-Myboard
-</Nav.Link>*/

@@ -59,7 +59,6 @@ const SelectBox = (props) => {
     const handleTags = (e) => {
         axios.get(`http://localhost:8080/tags/${e.target.value}`).then((result) => {
             props.setPostsByTags(result)
-            console.log(props.postsByTags)
         })
         setTags(e.target.value)
     }
@@ -84,9 +83,8 @@ export default function Board(props) {
     // console.log(props.postsinfo)
     const navigate = useNavigate();
     const [tests, settests] = useState()
-    console.log(tests)
     props.onepostinfo(tests)
-
+    console.log(props.postsByTags.data)
     const [postsinfo, setPostsinfo] = useState()
 
     const isPosts = () => {
@@ -102,7 +100,6 @@ export default function Board(props) {
     }, []);
 
     const handlemovepost = (e) => {
-        console.log(e)
         navigate('/post', { state: { post: e } })
     }
 
