@@ -41,6 +41,38 @@ height: 90%;
 export const Postbutton = styled.button`
 float: right;
 `
+const OPTIONS = [
+  { id: 1, value: "tags", name: "태그 선택" },
+  { id: 2, value: "mountain", name: "산", post_id: "1" },
+  { id: 3, value: "river", name: "강", post_id: "2" },
+  { id: 4, value: "sea", name: "바다", post_id: "3" },
+  { id: 5, value: "valley", name: "계곡", post_id: "4" },
+];
+
+const SelectBox = (props) => {
+  const [tags, setTags] = useState('')
+
+  const handleTags = (e) => {
+      axios.get(`http://localhost:8080/tags/${e.target.value}`).then((result) => {
+          props.setPostsByTags(result)
+          console.log(props.postsByTags)
+      })
+      setTags(e.target.value)
+  }
+  return (
+      <select onChange={handleTags} value={tags}>
+          {props.options.map((option) => (
+              <option
+                  key={option.value}
+                  value={option.post_id}
+                  defaultValue={props.defaultValue === option.value}
+              >
+                  {option.name}
+              </option>
+          ))}
+      </select>
+  );
+};
 
 export default function Board(props){
 
@@ -73,25 +105,34 @@ return(
   
 <Allpage>
     <Options>
-
-        태그선택  게시글 나열 방식  <Postbutton onClick={() => {navigate('/create_post');}}>글쓰기</Postbutton>
+    <SelectBox options={OPTIONS} postsByTags={props.postsByTags} setPostsByTags={props.setPostsByTags} defaultValue="태그 선택" />
+    게시글 나열 방식  <Postbutton onClick={() => {navigate('/create_post');}}>글쓰기</Postbutton>
     </Options>
     <ViewBoard>
     <Vboard>
       <Vboards>
-      {postsinfo&&postsinfo.map(posts=>
-      {
-          return(
-            <Boardbutton onClick={() => {settests(posts);handlemovepost(posts)}} >
-            <Boardpostform 
-            posts={posts}
-            key={posts.id}
-            
-            />
-            
-            </Boardbutton>
-          )
-           } )}
+      {props.postsByTags === '' ?
+                            postsinfo && postsinfo.map(posts => {
+                                return (
+                                    <Boardbutton onClick={() => { settests(posts); handlemovepost(posts) }} >
+                                        <Boardpostform
+                                            posts={posts}
+                                            key={posts.id}
+                                        />
+                                    </Boardbutton>
+                                )
+                            }) :
+                            props.postsByTags.data.results.map((posts) => {
+                                return (
+                                    <Boardbutton onClick={() => { settests(posts); handlemovepost(posts) }} >
+                                        <Boardpostform
+                                            posts={posts}
+                                            key={posts.id}
+                                        />
+                                    </Boardbutton>
+                                )
+                            }
+                            )}
             
       </Vboards>
     </Vboard>

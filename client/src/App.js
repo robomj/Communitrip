@@ -60,6 +60,7 @@ z-index: 1011;
 
 function App() {
     const navigate = useNavigate();
+    const [postsByTags, setPostsByTags] = useState('');
     const [userinfo, setUserinfo] = useState({});
     const [postsinfo, setPostsinfo]=useState()
     const [tags, setTags] = useState()
@@ -201,7 +202,7 @@ function App() {
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
-    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} onepostinfo={setonepostinfo}/>} />
+    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} onepostinfo={setonepostinfo} postsByTags={postsByTags} setPostsByTags={setPostsByTags} />} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
     <Route path="/create_post" element={<Create_post userinfo ={userinfo} tags={tags} />} />
     <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
