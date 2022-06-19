@@ -11,7 +11,7 @@ app.use(cors({
     credentials: true,
     methods: ['GET', 'POST','DELETE','PATCH', 'OPTIONS']
   }));
-db.sequelize.sync().then(() => {
+db.sequelize.sync().then(() => { /** 동기화 및 연결 */
     console.log('db 연결 성공')
 }).catch((err) => {
     console.log(err)
