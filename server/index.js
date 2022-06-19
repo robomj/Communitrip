@@ -3,11 +3,16 @@ const cookieParser = require('cookie-parser');
 const db = require('./models')
 const app = express();
 const controllers = require('./controllers')
-const port = 8080;
+const port = 80;
 const cors =require('cors')
 
 app.use(cors({
     origin: ['http://localhost:3000'],
+    credentials: true,
+    methods: ['GET', 'POST','DELETE','PATCH', 'OPTIONS']
+  }));
+app.use(cors({
+    origin: ['http://practice-bucket-deploy-robomj.s3-website.ap-northeast-2.amazonaws.com'],
     credentials: true,
     methods: ['GET', 'POST','DELETE','PATCH', 'OPTIONS']
   }));
