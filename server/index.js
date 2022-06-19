@@ -12,7 +12,12 @@ app.use(cors({
     methods: ['GET', 'POST','DELETE','PATCH', 'OPTIONS']
   }));
 app.use(cors({
-    origin: ['http://practice-bucket-deploy-robomj.s3-website.ap-northeast-2.amazonaws.com'],
+    origin: ['http://communitrip.net.s3-website.ap-northeast-2.amazonaws.com'],
+    credentials: true,
+    methods: ['GET', 'POST','DELETE','PATCH', 'OPTIONS']
+  }));
+  app.use(cors({
+    origin: ['http://communitrip.net'],
     credentials: true,
     methods: ['GET', 'POST','DELETE','PATCH', 'OPTIONS']
   }));
