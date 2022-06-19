@@ -80,6 +80,10 @@ padding: 5px;
 transform: translate(-50%, -50%);
 z-index: 1011;
 `;
+
+const url = `http://localhost:8080`
+
+
 export default function Mypage(props) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -93,7 +97,7 @@ export default function Mypage(props) {
   };
   console.log(props)
   const handleSignout =() =>{
-    axios.delete(`http://localhost:8080/users/${props.userinfo.id}`)
+    axios.delete(`${process.env.REACT_APP_API_URL}/users/${props.userinfo.id}`)
     .then((data) => {
       navigate('/')
     })

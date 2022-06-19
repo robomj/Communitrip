@@ -74,12 +74,14 @@ transform: translate(-50%, -50%);
 z-index: 1011;
 `;
 
+const url = `http://localhost:8080`
+
 
 export default function Login ({ handleResponseSuccess }) {
 
 const responseKaKao = (res) => {
   console.log(res.profile.kakao_account)
-  axios.post('http://localhost:8080/kakao/login',{
+  axios.post(`${process.env.REACT_APP_API_URL}/kakao/login`,{
         data: res.profile.kakao_account
         
       }).then()
@@ -115,7 +117,7 @@ const responseKaKao = (res) => {
   const handleLogin = () => {
     
     if(loginInfo.email !=='' && loginInfo.password !== ''){
-      axios.post('http://localhost:8080/users/login',{
+      axios.post(`${process.env.REACT_APP_API_URL}/users/login`,{
         email: loginInfo.email,
         password: loginInfo.password
       }).then( handleResponseSuccess )

@@ -80,10 +80,14 @@ export default function EditProfile(props) {
       setErrPasswordChecked('');
     }
   }, [editInfo]);
+
+  const url = `http://localhost:8080`
+
+  
   const handleEdit = () => {
     
     if(editInfo.name !=='' && editInfo.password !== '' && editInfo.newpassword !== '' && editInfo.samepassword !==''){
-      axios.patch(`http://localhost:8080/users/${props.userinfo.id}`,{
+      axios.patch(`${process.env.REACT_APP_API_URL}/users/${props.userinfo.id}`,{
         name: editInfo.name,
         password: editInfo.newpassword,
       }).then(props.userinfo.name = editInfo.name,props.userinfo.password = editInfo.password)   

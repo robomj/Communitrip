@@ -18,7 +18,6 @@ const Dropdownbtn = styled(DropdownButton)`
     height: 4vh;
     line-height: 1rem;
     margin: 20px;
-    fo
   }
   
 `
@@ -97,6 +96,8 @@ export default function Create_post(props) {
     setpostInfo({ ...postInfo, [key]: e.target.value });
   }
 
+  const url = `http://localhost:8080`
+
   const handlesucces = () => {
     if(postInfo.user_id !== '' 
     && postInfo.contents !== '' 
@@ -106,7 +107,7 @@ export default function Create_post(props) {
     // && postInfo.longitude !== '' 
     // && postInfo.latitude !== ''
     ) {
-      axios.post(`http://localhost:8080/posts/${userId}`,{
+      axios.post(`${process.env.REACT_APP_API_URL}/posts/${userId}`,{
         user_id: postInfo.user_id,
         contents: postInfo.contents,
         title: postInfo.title,

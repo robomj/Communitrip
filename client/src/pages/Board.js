@@ -42,6 +42,7 @@ float: right;
 export const Boardbutton = styled.button`
 margin-right : 25px;
 `
+const url = `http://localhost:8080`
 
 const OPTIONS = [
     { id: 1, value: "tags", name: "태그 선택" },
@@ -59,7 +60,7 @@ const SelectBox = (props) => {
         if (e.target.value === "태그 선택") {
             props.setPostsByTags('')
         } else {
-            axios.get(`http://localhost:8080/tags/${e.target.value}`).then((result) => {
+            axios.get(`${process.env.REACT_APP_API_URL}/tags/${e.target.value}`).then((result) => {
                 props.setPostsByTags(result)
             })
             setTags(e.target.value)
@@ -91,7 +92,7 @@ export default function Board(props) {
     const [postsinfo, setPostsinfo] = useState()
 
     const isPosts = () => {
-        axios.get('http://localhost:8080/posts').then((res) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/posts`).then((res) => {
             const test = res.data.data
             setPostsinfo(test)
         }).catch(error => {
