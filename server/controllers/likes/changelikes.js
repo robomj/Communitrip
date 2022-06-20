@@ -1,4 +1,4 @@
-const { posts, likes } = require('../../models')
+const { posts, likes, sequelize } = require('../../models')
 
 module.exports = (req, res) => {
     likes.findOrCreate({
@@ -18,9 +18,9 @@ module.exports = (req, res) => {
                 where: {
                     id: req.body.post_id
                 }
-            }).then((result) => {
+            }).then((result2) => {
                 posts.update({
-                    total_likes: result.dataValues.total_likes - 1
+                    total_likes: result2.dataValues.total_likes - 1
                 }, {
                     where: {
                         id: req.body.post_id
@@ -43,9 +43,9 @@ module.exports = (req, res) => {
                 where: {
                     id: req.body.post_id
                 }
-            }).then((result) => {
+            }).then((result2) => {
                 posts.update({
-                    total_likes: result.dataValues.total_likes + 1
+                    total_likes: result2.dataValues.total_likes + 1
                 }, {
                     where: {
                         id: req.body.post_id

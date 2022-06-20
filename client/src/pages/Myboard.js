@@ -41,6 +41,7 @@ height: 90%;
 export const Postbutton = styled.button`
 float: right;
 `
+<<<<<<< HEAD
 const OPTIONS = [
   { id: 1, value: "tags", name: "태그 선택" },
   { id: 2, value: "mountain", name: "산", post_id: "1" },
@@ -73,6 +74,9 @@ const SelectBox = (props) => {
       </select>
   );
 };
+=======
+
+>>>>>>> 717db814db614c225d655999bd6030a5901594d3
 
 export default function Myboard(props){
 console.log(props.userinfo)
@@ -81,7 +85,7 @@ const [tests,settests]=useState()
 const [mypostsinfo, setmyPostsinfo]=useState();
 console.log(mypostsinfo)
 const isMyposts =() =>{
-    axios.get (`http://localhost:8080/posts/users/${props.userinfo.id}`).then((res)=>{ 
+    axios.get(`/posts/users/${props.userinfo.id}`).then((res)=>{ 
       const info = res.data.data    
       setmyPostsinfo(info)
         }).catch(error =>{
