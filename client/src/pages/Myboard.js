@@ -42,8 +42,6 @@ export const Postbutton = styled.button`
 float: right;
 `
 
-const url = `http://localhost:8080`
-
 
 export default function Myboard(props){
 console.log(props.userinfo)
@@ -51,7 +49,7 @@ const navigate = useNavigate();
 const [mypostsinfo, setmyPostsinfo]=useState();
 console.log(mypostsinfo)
 const isMyposts =() =>{
-    axios.get (`${process.env.REACT_APP_API_URL}/posts/users/${props.userinfo.id}`).then((res)=>{ 
+    axios.get(`/posts/users/${props.userinfo.id}`).then((res)=>{ 
       const info = res.data.data    
       setmyPostsinfo(info)
         }).catch(error =>{

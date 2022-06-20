@@ -96,8 +96,6 @@ export default function Create_post(props) {
     setpostInfo({ ...postInfo, [key]: e.target.value });
   }
 
-  const url = `http://localhost:8080`
-
   const handlesucces = () => {
     if(postInfo.user_id !== '' 
     && postInfo.contents !== '' 
@@ -107,7 +105,7 @@ export default function Create_post(props) {
     // && postInfo.longitude !== '' 
     // && postInfo.latitude !== ''
     ) {
-      axios.post(`${process.env.REACT_APP_API_URL}/posts/${userId}`,{
+      axios.post(`/posts/${userId}`,{
         user_id: postInfo.user_id,
         contents: postInfo.contents,
         title: postInfo.title,
@@ -117,6 +115,8 @@ export default function Create_post(props) {
         address: postInfo.address,
         longitude: postInfo.longitude,
         latitude: postInfo.latitude,
+      },{
+        withCredentials: true
       }).then(
       navigate('/board')
       )

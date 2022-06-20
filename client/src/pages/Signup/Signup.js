@@ -26,7 +26,6 @@ transform: translate(-50%, -50%);
   background-color: gray;
 }
 `
-const url = `http://localhost:8080`
 
 export default function Signup({show, onHide}) {
 
@@ -81,10 +80,12 @@ export default function Signup({show, onHide}) {
 
   const handleSignup = () => {
     if(signupInfo.email !== '' && signupInfo.password !=='' && signupInfo.name !==''){
-      axios.post(`${process.env.REACT_APP_API_URL}/users/signup`,{
+      axios.post(`/users/signup`,{
         name:signupInfo.userName,
         email:signupInfo.email,
         password:signupInfo.password,
+      },{
+        withCredentials: true
       })
       
       setErrorMessage('')

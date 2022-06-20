@@ -57,8 +57,6 @@ transform: translate(-50%, -50%);
 z-index: 1011;
 `;
 
-const url = `http://localhost:8080`
-
 function App() {
   const navigate = useNavigate();
   const [userinfo, setUserinfo] = useState({
@@ -70,7 +68,7 @@ function App() {
   const [onepostinfo, setonepostinfo] = useState({});
 
   const isPosts = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/posts`).then((res) => {
+    axios.get(`/posts`).then((res) => {
       const test = res.data.data
       setPostsinfo(test)
     }).catch(error => {
@@ -78,7 +76,7 @@ function App() {
     })
   }
   const isTags = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/tags`).then((res) => {
+    axios.get(`/tags`).then((res) => {
       const test = res.data.data
       setTags(test)
     }).catch(error => {
@@ -87,7 +85,7 @@ function App() {
   }
 
   const isAuthenticated = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/users/auth`).then((res) => {
+    axios.get(`/users/auth`).then((res) => {
 
       if (res.data.data.userInfo !== null) {
         const test = res.data.data.userInfo;
@@ -107,11 +105,13 @@ function App() {
   };
   const handleLogout = () => {
 
-    axios.post(`${process.env.REACT_APP_API_URL}/users/logout`).then((res) => {
+    axios.post(`/users/logout`).then((res) => {
       setUserinfo(null);
       setIsLogin(false);
       navigate('/')
-    })
+    },{
+        withCredentials: true
+      })
   }
   const [isLogin, setIsLogin] = useState(false);
 
