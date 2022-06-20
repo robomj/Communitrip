@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Dropdown, DropdownButton} from 'react-bootstrap';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 import styled from 'styled-components';
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,6 @@ const Dropdownbtn = styled(DropdownButton)`
     height: 4vh;
     line-height: 1rem;
     margin: 20px;
-    fo
   }
   
 `
@@ -35,7 +34,7 @@ const PreviewDiv = styled.div`
     width: 300px;
     height: 300px;
   }
-` 
+`
 
 export default function Create_post(props) {
   const [postInfo, setpostInfo] = useState({
@@ -54,30 +53,24 @@ export default function Create_post(props) {
   const [imageSrc, setImageSrc] = useState('');
   const userId = props.userinfo.id
   const inputRef = useRef();
-  const navigate= useNavigate();
-  console.log(userId)
-  console.log(props.tags)
-  console.log('렌더링...')
-  console.log(coordinate.x)
-  
-  
+  const navigate = useNavigate();
+
   const handleImage = (e) => {
     console.log(e.target.files)
     inputRef.current.click()
-    
   }
-
+  
   const handleTags = (e) => {
     setTagName(e.name)
     const tagId = e.id
     setpostInfo((e) => {
       console.log(tagId)
-      return {...e, tag_id: tagId}
+      return { ...e, tag_id: tagId }
     })
-    
+    console.log(postInfo)
   }
-
-  const preview = (fileBlob) => {    
+  
+  const preview = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
@@ -86,27 +79,27 @@ export default function Create_post(props) {
         console.log(img)
         setImageSrc(reader.result);
         setpostInfo((e) => {
-          return {...e, image: img}
+          return { ...e, image: img }
         })
         resolve();
       };
     });
   };
 
-  const handlePostInfo = (key) =>(e) => {
+  const handlePostInfo = (key) => (e) => {
     setpostInfo({ ...postInfo, [key]: e.target.value });
   }
 
   const handlesucces = () => {
-    if(postInfo.user_id !== '' 
-    && postInfo.contents !== '' 
-    && postInfo.title !== '' 
-    && postInfo.tag_id !== '' 
-    // && postInfo.image !== '' 
-    // && postInfo.longitude !== '' 
-    // && postInfo.latitude !== ''
+    if (postInfo.user_id !== ''
+      && postInfo.contents !== ''
+      && postInfo.title !== ''
+      && postInfo.tag_id !== ''
+      // && postInfo.image !== '' 
+      // && postInfo.longitude !== '' 
+      // && postInfo.latitude !== ''
     ) {
-      axios.post(`http://localhost:8080/posts/${userId}`,{
+      axios.post(`${process.env.REACT_APP_API_URL}/posts/${userId}`, {
         user_id: postInfo.user_id,
         contents: postInfo.contents,
         title: postInfo.title,
@@ -116,36 +109,39 @@ export default function Create_post(props) {
         address: postInfo.address,
         longitude: postInfo.longitude,
         latitude: postInfo.latitude,
+      }, {
+        withCredentials: true
       }).then(
-      navigate('/board')
+        navigate('/board')
       )
-    } 
-  } 
-  console.log(postInfo)
+    }
+  }
+
   return (
     <div>
       <center>
-      <h2>게시글 작성</h2>
+        <h2>게시글 작성</h2>
       </center>
       <>
         <div>제목</div>
-        <TitleInput  type="text" onChange={handlePostInfo('title')} placeholder='제목을 입력해주세요'  />
+        <TitleInput type="text" onChange={handlePostInfo('title')} placeholder='제목을 입력해주세요' />
       </>
       <div>태그선택</div>
       <Dropdownbtn id="dropdown-item-button" title={tagName} >
-      {props.tags?.map(tags => {
-        return <Dropdown.Item 
-        as="button" 
-        key={tags.id}  
-        onClick={() =>{
-          handleTags(tags)
-        }}
-        >
-        {tags.name}
-        </Dropdown.Item>
-      })}
-    </Dropdownbtn>
-    {/* <div>이미지</div>
+        {props.tags?.map(tags => {
+          return <Dropdown.Item
+            as="button"
+            key={tags.id}
+            onClick={() => {
+              handleTags(tags)
+            }}
+          >
+            {tags.name}
+          </Dropdown.Item>
+        })}
+      </Dropdownbtn>
+
+      {/* <div>이미지</div>
     <PreviewDiv>
       <div className="preview" >
         {imageSrc && <img src={imageSrc} alt="preview-img" className="previewImg" />}
@@ -166,9 +162,9 @@ export default function Create_post(props) {
     <button className="browse-btn" onClick={handleImage}>
       사진업로드
     </button> */}
-    <div>글 작성</div>
+      <div>글 작성</div>
       <input type="text" placeholder='글을 작성해주세요' onChange={handlePostInfo('contents')} />
-    <div>지도</div>
+      <div>지도</div>
       {/* <KakaoMap setCoordinate={setCoordinate} setpostInfo={setpostInfo} coordinate={coordinate}/> */}
       <button onClick={handlesucces} >작성완료</button>
 

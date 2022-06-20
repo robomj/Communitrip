@@ -1,9 +1,9 @@
-const { posts } = require('../../models')
+const { likes } = require('../../models')
 
 module.exports = (req, res) => {
-    posts.findOne({
+    likes.findOne({
         attributes: {
-            exclude: ['userId']
+            exclude: ['userId', 'postId']
         },
         where: {
             id: req.params.postId
@@ -12,7 +12,7 @@ module.exports = (req, res) => {
         if (!result) {
             res.status(400).json({ message: '로그인 먼저 하세요' })
         } else {
-            res.json({ data: result.dataValues.total_likes })
+            res.json({ data : result.dataValues.user_id })
         }
     }).catch((err) => {
         console.log(err)

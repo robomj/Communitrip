@@ -41,13 +41,15 @@ height: 90%;
 export const Postbutton = styled.button`
 float: right;
 `
+
+
 export default function Myboard(props){
 console.log(props.userinfo)
 const navigate = useNavigate();
 const [mypostsinfo, setmyPostsinfo]=useState();
 console.log(mypostsinfo)
 const isMyposts =() =>{
-    axios.get (`http://localhost:8080/posts/users/${props.userinfo.id}`).then((res)=>{ 
+    axios.get(`/posts/users/${props.userinfo.id}`).then((res)=>{ 
       const info = res.data.data    
       setmyPostsinfo(info)
         }).catch(error =>{

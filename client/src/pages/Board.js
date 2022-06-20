@@ -3,7 +3,6 @@ import { Routes, Route, useNavigate } from "react-router";
 import styled from 'styled-components';
 import axios from 'axios';
 import Boardpostform from './Boardpostform';
-import Select from 'react-select'
 import { dummyPost } from '../dummy.js';
 
 
@@ -46,10 +45,10 @@ margin-right : 25px;
 
 const OPTIONS = [
     { id: 1, value: "tags", name: "태그 선택" },
-    { id: 2, value: "mountain", name: "산", post_id: "1" },
-    { id: 3, value: "river", name: "강", post_id: "2" },
-    { id: 4, value: "sea", name: "바다", post_id: "3" },
-    { id: 5, value: "valley", name: "계곡", post_id: "4" },
+    { id: 2, value: "mountain", name: "산", tag_id: "1" },
+    { id: 3, value: "river", name: "강", tag_id: "2" },
+    { id: 4, value: "sea", name: "바다", tag_id: "3" },
+    { id: 5, value: "valley", name: "계곡", tag_id: "4" },
 ];
 
 
@@ -57,18 +56,22 @@ const SelectBox = (props) => {
     const [tags, setTags] = useState('')
 
     const handleTags = (e) => {
-        axios.get(`http://localhost:8080/tags/${e.target.value}`).then((result) => {
-            props.setPostsByTags(result)
-            console.log(props.postsByTags)
-        })
-        setTags(e.target.value)
+        console.log(e.target.value)
+        if (e.target.value === "태그 선택") {
+            props.setPostsByTags('')
+        } else {
+            axios.get(`${process.env.REACT_APP_API_URL}/tags/${e.target.value}`).then((result) => {
+                props.setPostsByTags(result)
+            })
+            setTags(e.target.value)
+        }
     }
     return (
         <select onChange={handleTags} value={tags}>
             {props.options.map((option) => (
                 <option
                     key={option.value}
-                    value={option.post_id}
+                    value={option.tag_id}
                     defaultValue={props.defaultValue === option.value}
                 >
                     {option.name}
@@ -84,13 +87,12 @@ export default function Board(props) {
     // console.log(props.postsinfo)
     const navigate = useNavigate();
     const [tests, settests] = useState()
-    console.log(tests)
     props.onepostinfo(tests)
-
+    console.log(props.postsByTags.data)
     const [postsinfo, setPostsinfo] = useState()
 
     const isPosts = () => {
-        axios.get('http://localhost:8080/posts').then((res) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/posts`).then((res) => {
             const test = res.data.data
             setPostsinfo(test)
         }).catch(error => {
@@ -102,7 +104,6 @@ export default function Board(props) {
     }, []);
 
     const handlemovepost = (e) => {
-        console.log(e)
         navigate('/post', { state: { post: e } })
     }
 
