@@ -9,7 +9,7 @@ height: 290px;
 margin: 0.3rem;
 background-color: white;
 `
-export const Postforms =styled.div`
+export const Postforms = styled.div`
 display: flex;
 width: 300px;
 height: 30px;
@@ -42,12 +42,14 @@ float: right;
 font-weight: 700;
 `
 
+
+
 export default function Boardpostform({posts}){
 
     return(
         <>
             <Postform key={posts.id}>
-            <Postimg src={posts.image} alt={posts.title} />
+            <Postimg src={posts.image} alt={posts.title}/>
             <Postforms>
             <Posttitle >{posts.title}</Posttitle>
             <Postcontent>{posts.contents}</Postcontent>

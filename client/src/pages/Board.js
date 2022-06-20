@@ -34,7 +34,7 @@ height: calc(100vh - 4rem);
 export const Vboards = styled.div`
 background-color: #bc9eff0e;
 padding: 5rem;
-width: 99%;
+width: 100%;
 min-height: 90vh;
 height: 90%;
 `

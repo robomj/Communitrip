@@ -15,7 +15,8 @@ import KakaoLogin from './pages/KakaoLogin'
 import Post_edit from './pages/Create_post';
 import Create_post from './pages/Create_post';
 import Post from './pages/Post';
-
+import Commentsform from './pages/Commentsform'
+import Editpost from './pages/Editpost'
 
 
 
@@ -68,7 +69,6 @@ function App() {
 
     console.log(onepostinfo)
     console.log(userinfo)
-    console.log(postsinfo)
 
     const isPosts =() =>{
       axios.get('http://localhost:8080/posts').then((res)=>{ 
@@ -107,7 +107,7 @@ function App() {
     const handleResponseSuccess = () => {
       isAuthenticated();
     };
-    const handleLogout =() =>{
+    const handleLogout = () =>{
       
       axios.post('http://localhost:8080/users/logout').then((res)=>{
         setUserinfo(null);
@@ -116,6 +116,7 @@ function App() {
       })
     }
     const [isLogin, setIsLogin] = useState(false);
+
     console.log(isLogin)
     const [onLoginModal, setOnLoginModal]=useState(false)
     const onLoginModalHandler =() =>{
@@ -125,6 +126,7 @@ function App() {
     const openLogoutHandler = () => { 
       setIsLogout(!isLogout);
     };
+
 
     useEffect(() => {
   
@@ -202,22 +204,17 @@ function App() {
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
-    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} onepostinfo={setonepostinfo} postsByTags={postsByTags} setPostsByTags={setPostsByTags} />} />
+    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} onepostinfo={setonepostinfo} postsByTags={postsByTags} setPostsByTags={setPostsByTags}/>} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
     <Route path="/create_post" element={<Create_post userinfo ={userinfo} tags={tags} />} />
-    <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
-    <Route path="/post" element={<Post />} />
+    <Route path="/myboard" element={<Myboard userinfo={userinfo} onepostinfo={setonepostinfo} postsByTags={postsByTags} setPostsByTags={setPostsByTags} />} />
+    <Route path="/post" element={<Post userinfo={userinfo}/>} />
+    <Route path="/commentsform" element={<Commentsform  />} />
+    <Route path="/editpost" element={<Editpost userinfo={userinfo} tags={tags} />} />
+
 </Routes>
 </div>
     )
 }
 
 export default App;
-/*Nav.Link
-href="my-Wise-saying"
-onClick={() => {
-  navigate("/my-Wise-saying");
-}}
->
-Myboard
-</Nav.Link>*/

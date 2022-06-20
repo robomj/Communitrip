@@ -51,21 +51,9 @@ export default function Create_post(props) {
   });
   const [coordinate, setCoordinate] = useState("");
   const [tagName, setTagName] = useState('태그');
-  const [imageSrc, setImageSrc] = useState('');
   const userId = props.userinfo.id
-  const inputRef = useRef();
   const navigate= useNavigate();
-  console.log(userId)
-  console.log(props.tags)
-  console.log('렌더링...')
-  console.log(coordinate.x)
-  
-  
-  const handleImage = (e) => {
-    console.log(e.target.files)
-    inputRef.current.click()
-    
-  }
+
 
   const handleTags = (e) => {
     setTagName(e.name)
@@ -77,21 +65,7 @@ export default function Create_post(props) {
     
   }
 
-  const preview = (fileBlob) => {    
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        const img = reader.result;
-        console.log(img)
-        setImageSrc(reader.result);
-        setpostInfo((e) => {
-          return {...e, image: img}
-        })
-        resolve();
-      };
-    });
-  };
+  
 
   const handlePostInfo = (key) =>(e) => {
     setpostInfo({ ...postInfo, [key]: e.target.value });
@@ -103,8 +77,8 @@ export default function Create_post(props) {
     && postInfo.title !== '' 
     && postInfo.tag_id !== '' 
     // && postInfo.image !== '' 
-    // && postInfo.longitude !== '' 
-    // && postInfo.latitude !== ''
+    && postInfo.longitude !== '' 
+    && postInfo.latitude !== ''
     ) {
       axios.post(`http://localhost:8080/posts/${userId}`,{
         user_id: postInfo.user_id,
@@ -145,31 +119,16 @@ export default function Create_post(props) {
         </Dropdown.Item>
       })}
     </Dropdownbtn>
-    {/* <div>이미지</div>
-    <PreviewDiv>
-      <div className="preview" >
-        {imageSrc && <img src={imageSrc} alt="preview-img" className="previewImg" />}
-      </div>
-    </PreviewDiv>
-    <input
-      ref={inputRef}
-      type="file" 
-      id="real-input" 
-      className="image_inputType_file" 
-      style={{ display: "none" }}
-      accept="image/*" 
-      onChange={(e) => {
-        preview(e.target.files[0]);
-      }}
-      required multiple 
-      />
-    <button className="browse-btn" onClick={handleImage}>
-      사진업로드
-    </button> */}
+
+  
+
+
+
+
     <div>글 작성</div>
       <input type="text" placeholder='글을 작성해주세요' onChange={handlePostInfo('contents')} />
     <div>지도</div>
-      {/* <KakaoMap setCoordinate={setCoordinate} setpostInfo={setpostInfo} coordinate={coordinate}/> */}
+      <KakaoMap setCoordinate={setCoordinate} setpostInfo={setpostInfo} coordinate={coordinate}/>
       <button onClick={handlesucces} >작성완료</button>
 
     </div>
