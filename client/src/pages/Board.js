@@ -42,14 +42,13 @@ float: right;
 export const Boardbutton = styled.button`
 margin-right : 25px;
 `
-const url = `http://localhost:8080`
 
 const OPTIONS = [
     { id: 1, value: "tags", name: "태그 선택" },
-    { id: 2, value: "mountain", name: "산", post_id: "1" },
-    { id: 3, value: "river", name: "강", post_id: "2" },
-    { id: 4, value: "sea", name: "바다", post_id: "3" },
-    { id: 5, value: "valley", name: "계곡", post_id: "4" },
+    { id: 2, value: "mountain", name: "산", tag_id: "1" },
+    { id: 3, value: "river", name: "강", tag_id: "2" },
+    { id: 4, value: "sea", name: "바다", tag_id: "3" },
+    { id: 5, value: "valley", name: "계곡", tag_id: "4" },
 ];
 
 
@@ -57,6 +56,7 @@ const SelectBox = (props) => {
     const [tags, setTags] = useState('')
 
     const handleTags = (e) => {
+        console.log(e.target.value)
         if (e.target.value === "태그 선택") {
             props.setPostsByTags('')
         } else {
@@ -71,7 +71,7 @@ const SelectBox = (props) => {
             {props.options.map((option) => (
                 <option
                     key={option.value}
-                    value={option.post_id}
+                    value={option.tag_id}
                     defaultValue={props.defaultValue === option.value}
                 >
                     {option.name}

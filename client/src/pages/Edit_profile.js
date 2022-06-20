@@ -84,7 +84,7 @@ export default function EditProfile(props) {
   const handleEdit = () => {
     
     if(editInfo.name !=='' && editInfo.password !== '' && editInfo.newpassword !== '' && editInfo.samepassword !==''){
-      axios.patch(`/users/${props.userinfo.id}`,{
+      axios.patch(`${process.env.REACT_APP_API_URL}/users/${props.userinfo.id}`,{
         name: editInfo.name,
         password: editInfo.newpassword,
       },{

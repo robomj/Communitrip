@@ -105,7 +105,7 @@ function App() {
   };
   const handleLogout = () => {
 
-    axios.post(`/users/logout`).then((res) => {
+    axios.post(`${process.env.REACT_APP_API_URL}/users/logout`).then((res) => {
       setUserinfo(null);
       setIsLogin(false);
       navigate('/')
