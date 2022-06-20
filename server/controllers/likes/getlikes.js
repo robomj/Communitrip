@@ -6,11 +6,11 @@ module.exports = (req, res) => {
             exclude: ['userId', 'postId']
         },
         where: {
-            id: req.params.postId
+            post_id: req.params.postId
         }
     }).then((result) => {
         if (!result) {
-            res.status(400).json({ message: '로그인 먼저 하세요' })
+            res.json({ data : null })
         } else {
             res.json({ data : result.dataValues.user_id })
         }
