@@ -5,7 +5,6 @@ import axios from 'axios';
 import Boardpostform from './Boardpostform';
 
 
-
 export const Allpage = styled.div`
 width : 99vw;
 height : 90vh;
@@ -41,7 +40,7 @@ height: 90%;
 export const Postbutton = styled.button`
 float: right;
 `
-<<<<<<< HEAD
+
 const OPTIONS = [
   { id: 1, value: "tags", name: "태그 선택" },
   { id: 2, value: "mountain", name: "산", post_id: "1" },
@@ -74,41 +73,38 @@ const SelectBox = (props) => {
       </select>
   );
 };
-=======
-
->>>>>>> 717db814db614c225d655999bd6030a5901594d3
 
 export default function Myboard(props){
-console.log(props.userinfo)
-const navigate = useNavigate();
-const [tests,settests]=useState()
-const [mypostsinfo, setmyPostsinfo]=useState();
-console.log(mypostsinfo)
-const isMyposts =() =>{
-    axios.get(`/posts/users/${props.userinfo.id}`).then((res)=>{ 
-      const info = res.data.data    
-      setmyPostsinfo(info)
-        }).catch(error =>{
-          console.log(error)
-        })
-  }
-  const handlemovepost=(e)=>{
-    console.log(e)
-    navigate('/post',{state: {post:e}})
-      }
-  useEffect(() => {
-    isMyposts();
-  }, [props.userinfo]);
-return(
-<Allpage>
-    <Options>
-    <SelectBox options={OPTIONS} postsByTags={props.postsByTags} setPostsByTags={props.setPostsByTags} defaultValue="태그 선택" />
-    게시글 나열 방식  <Postbutton onClick={() => {navigate('/create_post');}}>글쓰기</Postbutton>
-    </Options>
-    <ViewBoard>
-    <Vboard>
-      <Vboards>
-      {props.postsByTags === '' ?
+  console.log(props.userinfo)
+  const navigate = useNavigate();
+  const [tests,settests]=useState()
+  const [mypostsinfo, setmyPostsinfo]=useState();
+  console.log(mypostsinfo)
+  const isMyposts =() =>{
+      axios.get(`/posts/users/${props.userinfo.id}`).then((res)=>{ 
+        const info = res.data.data    
+        setmyPostsinfo(info)
+          }).catch(error =>{
+            console.log(error)
+          })
+    }
+    const handlemovepost=(e)=>{
+      console.log(e)
+      navigate('/post',{state: {post:e}})
+        }
+    useEffect(() => {
+      isMyposts();
+    }, [props.userinfo]);
+  return(
+  <Allpage>
+      <Options>
+      <SelectBox options={OPTIONS} postsByTags={props.postsByTags} setPostsByTags={props.setPostsByTags} defaultValue="태그 선택" />
+      게시글 나열 방식  <Postbutton onClick={() => {navigate('/create_post');}}>글쓰기</Postbutton>
+      </Options>
+      <ViewBoard>
+      <Vboard>
+        <Vboards>
+        {props.postsByTags === '' ?
                             mypostsinfo && mypostsinfo.map(posts => {
                                 return (
                                     <Boardbutton onClick={() => { settests(posts); handlemovepost(posts) }} >

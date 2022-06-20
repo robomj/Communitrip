@@ -9,6 +9,7 @@ const multer = require('multer');
 const sharp = require('sharp');
 
 
+
 app.use(cors({
   origin: ['http://communitrip.net.s3-website.ap-northeast-2.amazonaws.com', 'http://communitrip.net', 'http://localhost:3000'],
   credentials: true,
