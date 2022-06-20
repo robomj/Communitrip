@@ -2,6 +2,9 @@ const { posts } = require('../../models')
 
 module.exports = (req, res) => {
     posts.findOne({
+        attributes: {
+            exclude: ['userId']
+        },
         where: {
             id: req.params.postId
         }

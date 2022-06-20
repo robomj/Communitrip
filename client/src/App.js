@@ -14,6 +14,7 @@ import Myboard from './pages/Myboard';
 import KakaoLogin from './pages/KakaoLogin'
 import Post_edit from './pages/Create_post';
 import Create_post from './pages/Create_post';
+import Post from './pages/Post';
 
 
 
@@ -55,14 +56,25 @@ padding: 5px;
 transform: translate(-50%, -50%);
 z-index: 1011;
 `;
+export const Icon = styled.img`
+width: 50px;
+height: 50px;
+`
 
 
 function App() {
     const navigate = useNavigate();
-    const [userinfo, setUserinfo] = useState({});
+    const [userinfo, setUserinfo] = useState({
+
+    });
+    const [postsByTags, setPostsByTags] = useState('');
     const [postsinfo, setPostsinfo]=useState()
     const [tags, setTags] = useState()
+    const [onepostinfo, setonepostinfo] =useState({});
+
+    console.log(onepostinfo)
     console.log(userinfo)
+
     const isPosts =() =>{
       axios.get('http://localhost:8080/posts').then((res)=>{ 
       const test = res.data.data    
@@ -100,7 +112,7 @@ function App() {
     const handleResponseSuccess = () => {
       isAuthenticated();
     };
-    const handleLogout =() =>{
+    const handleLogout = () =>{
       
       axios.post('http://localhost:8080/users/logout').then((res)=>{
         setUserinfo(null);
@@ -109,6 +121,7 @@ function App() {
       })
     }
     const [isLogin, setIsLogin] = useState(false);
+
     console.log(isLogin)
     const [onLoginModal, setOnLoginModal]=useState(false)
     const onLoginModalHandler =() =>{
@@ -119,17 +132,19 @@ function App() {
       setIsLogout(!isLogout);
     };
 
+
     useEffect(() => {
+  
       isAuthenticated();
       isPosts();
       isTags();
-    }, []);
+    }, [onepostinfo]);
 
     return (
         <div className="App">
         <Navbar  bg="light" variant="light" className="nav">
           <Container>
-            <Navbar.Brand href="/">Logo</Navbar.Brand>
+            <Navbar.Brand href="/"><Icon src="img/log.png" />Communitrip</Navbar.Brand>
             <Nav className="nav justify-content-end" >
               <Nav.Link 
                 href="board"
@@ -194,10 +209,11 @@ function App() {
     <Route path="/mypage" element={<Mypage userinfo ={userinfo} handleLogout={handleLogout} />} />
     <Route path="/login" element={<Login handleResponseSuccess={handleResponseSuccess}/>} />
     <Route path="/edit_profile" element={<Edit_profile userinfo={userinfo} />} />
-    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} />} />
+    <Route path="/board" element={<Board postsinfo={postsinfo} userinfo ={userinfo} onepostinfo={setonepostinfo} postsByTags={postsByTags} setPostsByTags={setPostsByTags}/>} />
     <Route path="/boardpostform" element={<Boardpostform  />} />
     <Route path="/create_post" element={<Create_post userinfo ={userinfo} tags={tags} />} />
     <Route path="/myboard" element={<Myboard userinfo={userinfo} />} />
+    <Route path="/post" element={<Post />} />
 </Routes>
 </div>
     )
