@@ -3,7 +3,7 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 import styled from 'styled-components';
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import KakaoMap from '../components/Kakao_Map'
+import KakaoMap from '../components/SearchPlace'
 
 axios.defaults.withCredentials = true;
 
@@ -74,8 +74,7 @@ export default function Create_post(props) {
         fileName: "",
         fillPath: ""
     });
-
-  const userId = props.userinfo.id
+const userId = props.userinfo.id
   const navigate= useNavigate();
   console.log(props.tags)
   console.log('렌더링...')
@@ -122,8 +121,7 @@ export default function Create_post(props) {
   const handlePostInfo = (key) => (e) => {
     setpostInfo({ ...postInfo, [key]: e.target.value });
   }
-
-  const handlesucces = () => {
+ const handlesucces = () => {
     if(postInfo.user_id !== '' 
     && postInfo.contents !== '' 
     && postInfo.title !== '' 

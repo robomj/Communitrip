@@ -75,29 +75,29 @@ z-index: 1011;
 `;
 
 
-export default function Login ({ handleResponseSuccess }) {
+export default function Login({ handleResponseSuccess }) {
 
-const responseKaKao = (res) => {
-  console.log(res.profile.kakao_account)
-  axios.post(`/kakao/login`,{
-        data: res.profile.kakao_account
-        
-      },{
-        withCredentials: true
-      }).then()
-      alert('로그인 성공하였습니다')
-      navigate('/')
-      openModalHandler();
-};
+  const responseKaKao = (res) => {
+    console.log(res.profile.kakao_account)
+    axios.post(`/kakao/login`, {
+      data: res.profile.kakao_account
+
+    }, {
+      withCredentials: true
+    }).then()
+    alert('로그인 성공하였습니다')
+    navigate('/')
+    openModalHandler();
+  };
 
   const [isOpen, setIsOpen] = useState(true);
   const [signUpModalOn, setSignUpModalOn] = useState(false);
 
-  const openModalHandler = () => { 
+  const openModalHandler = () => {
     setIsOpen(!isOpen);
   };
 
- 
+
 
 
   const openSignUpHandler = () => {
@@ -105,7 +105,7 @@ const responseKaKao = (res) => {
   }
 
 
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -115,47 +115,47 @@ const responseKaKao = (res) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
   const handleLogin = () => {
-    
-    if(loginInfo.email !=='' && loginInfo.password !== ''){
-      axios.post(`/users/login`,{
+
+    if (loginInfo.email !== '' && loginInfo.password !== '') {
+      axios.post(`/users/login`, {
         email: loginInfo.email,
         password: loginInfo.password
-      },{
+      }, {
         withCredentials: true
-      }).then( handleResponseSuccess )
+      }).then(handleResponseSuccess)
       navigate('/')
       openModalHandler();
-    }else{
+    } else {
       setErrorMessage('이메일과 비밀번호를 입력하세요')
     }
   };
 
- 
+
   return (
-    
+
     <div>
 
-          {isOpen ? <ModalBackdrop onClick={openModalHandler}>
-                    <ModalView onClick={(event) => {event.stopPropagation()}}>  
-        <center>
-        <h1>로그인 하기</h1>
-        <br /><br />
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div>
-            <div>이메일 입력</div>
-            <Input type='email' onChange={handleInputValue('email')} />
-          </div>
-          <br />
-          <div>
-            <div>비밀번호 입력</div>
-            <Input
-              type='password'
-              onChange={handleInputValue('password')}
-            />
-          </div>
-          <br /><br /><br /><br /><br /><br /><br /><br />
-          {/* <KaKaoBtn onClick={handlekakaoLogin}>카카오 로그인</KaKaoBtn> */}
-          {/* <button  onClick={() => {handlekakao()}} href="javascript:void(0)" >
+      {isOpen ? <ModalBackdrop onClick={openModalHandler}>
+        <ModalView onClick={(event) => { event.stopPropagation() }}>
+          <center>
+            <h1>로그인 하기</h1>
+            <br /><br />
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div>
+                <div>이메일 입력</div>
+                <Input type='email' onChange={handleInputValue('email')} />
+              </div>
+              <br />
+              <div>
+                <div>비밀번호 입력</div>
+                <Input
+                  type='password'
+                  onChange={handleInputValue('password')}
+                />
+              </div>
+              <br /><br /><br /><br /><br /><br /><br /><br />
+              {/* <KaKaoBtn onClick={handlekakaoLogin}>카카오 로그인</KaKaoBtn> */}
+              {/* <button  onClick={() => {handlekakao()}} href="javascript:void(0)" >
           <span>카카오 로그인</span>
           </button>
       
@@ -167,34 +167,34 @@ const responseKaKao = (res) => {
             <span>카카오 로그아웃</span>
         
     </button> */}
-    <KaKaoBtn
-    //styled component 통해 style을 입혀 줄 예정 
+              <KaKaoBtn
+                //styled component 통해 style을 입혀 줄 예정 
                 jsKey={process.env.REACT_APP_KAKAOINIT}
-    //카카오에서 할당받은 jsKey를 입력
+                //카카오에서 할당받은 jsKey를 입력
                 buttonText='카카오 계정으로 로그인'
-    //로그인 버튼의 text를 입력
-    onSuccess={responseKaKao}
-    //성공했을때 불러올 함수로서 fetch해서 localStorage에 저장할 함수를 여기로 저장 
+                //로그인 버튼의 text를 입력
+                onSuccess={responseKaKao}
+                //성공했을때 불러올 함수로서 fetch해서 localStorage에 저장할 함수를 여기로 저장 
                 getProfile={true}
               />
-            <br /><br />
-          <ModalBtn  onClick={handleLogin}>
-            로그인
-          </ModalBtn>
-          <br /><br />
-          <div>
-          <ModalBtn  className="close-btn" onClick={openSignUpHandler} >
-            회원가입
-          </ModalBtn>
-          </div>
-          <div className='alert-box'>{errorMessage}</div>
+              <br /><br />
+              <ModalBtn onClick={handleLogin}>
+                로그인
+              </ModalBtn>
+              <br /><br />
+              <div>
+                <ModalBtn className="close-btn" onClick={openSignUpHandler} >
+                  회원가입
+                </ModalBtn>
+              </div>
+              <div className='alert-box'>{errorMessage}</div>
 
-          <Signup show={signUpModalOn} onHide={() => setSignUpModalOn(false)} />
+              <Signup show={signUpModalOn} onHide={() => setSignUpModalOn(false)} />
 
-        </form>
-      </center>         
-                    </ModalView>
-                  </ModalBackdrop> : null} 
+            </form>
+          </center>
+        </ModalView>
+      </ModalBackdrop> : null}
 
     </div>
   );

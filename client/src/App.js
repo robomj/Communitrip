@@ -61,6 +61,10 @@ export const Icon = styled.img`
 width: 50px;
 height: 50px;
 `
+export const LogImg = styled.img`
+width: 3vw;
+height: 5vh;
+`
 
 function App() {
     const navigate = useNavigate();
@@ -109,7 +113,7 @@ function App() {
   };
   const handleLogout = () => {
 
-    axios.post(`${process.env.REACT_APP_API_URL}/users/logout`).then((res) => {
+    axios.post(`/users/logout`).then((res) => {
       setUserinfo(null);
       setIsLogin(false);
       navigate('/')
@@ -140,7 +144,7 @@ function App() {
     <div className="App">
       <Navbar bg="light" variant="light" className="nav">
         <Container>
-          <Navbar.Brand href="/">Logo</Navbar.Brand>
+        <Navbar.Brand href="/"><LogImg src="img/log.png" />Communitrip</Navbar.Brand>
           <Nav className="nav justify-content-end" >
             <Nav.Link
               href="board"
