@@ -32,32 +32,8 @@ app.use(express.json({ limit: "10mb"}))
 app.use(express.urlencoded({ limit:"10mb", extended: false })); /** 클라이언트 body 해석 위함 */
 app.use(cookieParser()); /** 요청된 쿠키를 추출하기 위한 미들웨어 req의 cookies속성 부여 */
 
-// app.use(express.static("public"))
-// const storage = multer.diskStorage({ /** 로컬 서버 폴더에 이미지 파일 저장 */
-//   destination: "./public/img/", /** 저장위치, 해당 폴더 없으면 자동 생성 */
-//   filename: (req, file, cb) => {
-//     cb(null, "imgfile" + Date.now() + path.extname(file.originalname)); /** 이미지의 이름 정하기 */
-//   }
-// }) /** 로컬 서버 폴더에 이미지를 저장하는 방법 */
-
-// const upload = multer({ /** 어떤 storage 사용할 것인지(로컬 또는 클라우드), 파일의 사이즈 정함(단위 byte) */
-//   storage: storage,
-//   limits: { fileSize: 1000000 }
-// })
-
-// app.post('/upload', upload.single("img"), (req, res) => { /** 프론트에서 formData에서 정해주었던 이름으로 img 받는다 */
-// console.log(req.file)
-//   res.json({ /** Storage 옵션에서 정해준 fileName을 프론트에 보낸다 */
-//     data: req.file
-//   })
-// })
-
 app.get('/', (req, res) => {
   res.json("hello world")
-})
-app.post('/img', (req, res) => {
-
-  console.log(req)
 })
 
 app.get("/users/auth", controllers.auth);
@@ -86,7 +62,7 @@ app.get('/posts/:postId/comments', controllers.getcomments) /** 댓글 갱신 */
 app.patch('/posts/:postId/comments/:commentsId', controllers.patchcomment) /** 댓글 수정 */
 
 app.post('/posts/:postId/likes', controllers.changelikes) /** 좋아요 증가/감소 */
-app.get('/posts/:postId/likes', controllers.getlikes) /** 좋아요 갱신 */
+app.get('/posts/:postId/likes/:userId', controllers.getlikes) /** 좋아요 갱신 */
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`)

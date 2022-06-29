@@ -5,7 +5,7 @@ module.exports = (req, res) => {
     likes.findOne({
         attributes: {
             exclude: ['postId', 'userId']
-        }, /** params로 받은 userId에 해당하는 likes 모두 찾아라 */
+        }, /** params로 받은 userId에 해당하는 likes 찾아라 */
         where: {
             user_id: req.params.userId
         }
